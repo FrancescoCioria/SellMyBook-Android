@@ -89,9 +89,7 @@ public class MainActivity extends SherlockActivity {
 	private ListView listViewRight;
 
 	private EditText editSearch;
-	private EditText editTitle;
-	private EditText editAuthor;
-	private EditText editYear;
+	
 
 	private RelativeLayout welcome;
 
