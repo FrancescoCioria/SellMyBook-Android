@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:id="@+id/book_list_item_filter"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/book_list_item_layout" >
+
+        <TextView
+            android:id="@+id/filterText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Libri attualmente in vendita"
+            android:textColor="@color/blue_marco"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/filterLine"
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/filterText"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/blue_marco"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/book_list_item_mainField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/book_list_item_filter"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/book_list_item_layout" >
+
+        <ImageView
+            android:id="@+id/book_list_item_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:layout_below="@+id/book_list_item_LineTop"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="7.5dp"
+            android:layout_marginTop="7.5dp"
+            android:layout_toRightOf="@+id/book_list_item_LineLeft"
+            android:adjustViewBounds="true"
+            android:background="@android:color/background_dark"
+            android:contentDescription="Icona libro"
+            android:maxWidth="60dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/book_example" />
+
+        <TextView
+            android:id="@+id/book_list_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/book_list_item_LineTop"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/buttonArrow"
+            android:layout_toRightOf="@+id/book_list_item_icon"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Fondamenti fisica"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/book_list_item_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/book_list_item_title"
+            android:layout_below="@+id/book_list_item_title"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/book_list_item_icon"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="James S. Walker"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/book_list_item_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/book_list_item_author"
+            android:layout_below="@+id/book_list_item_author"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@+id/book_list_item_icon"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:paddingRight="50dp"
+            android:text="23 libri con prezzi a partire da 13 euro."
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/book_list_item_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/book_list_item_desc"
+            android:layout_below="@+id/book_list_item_desc"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:text="(edizione 2010)"
+            android:textSize="10sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/buttonArrow"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/book_list_item_LineTop"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/arrow" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/book_list_item_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/book_list_item_mainField"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/shadow_linear" />
+
+    <RelativeLayout
+        android:id="@+id/book_list_item_shadowFilter"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/book_list_item_filter" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="3dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/shadow_linear" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/book_list_item_finalMargin"
+        android:layout_width="fill_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/book_list_item_shadow"
+        android:visibility="gone" >
+    </RelativeLayout>
+
+</RelativeLayout>

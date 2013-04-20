@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/side_navigation_background"
+    android:paddingBottom="3dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="3dp" >
+
+    <EditText
+        android:id="@+id/side_navigation_right_title"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/side_navigation_right_fixtitle"
+        android:background="@drawable/edit_text_rounded_corners"
+        android:ems="10"
+        android:maxLines="1"
+        
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/side_navigation_right_author"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/side_navigation_right_fixauthor"
+        android:background="@drawable/edit_text_rounded_corners"
+        android:ems="10"
+        android:maxLines="1"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/side_navigation_right_year"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/side_navigation_right_fixyear"
+        android:background="@drawable/edit_text_rounded_corners"
+        android:ems="10"
+        android:maxLines="1"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/side_navigation_right_fixtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/side_navigation_right_title"
+        android:layout_below="@+id/side_navigation_right_topline2"
+        android:layout_marginLeft="12dp"
+        android:text="Titolo"
+        android:textColor="@color/light_gray"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/side_navigation_right_fixauthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/side_navigation_right_title"
+        android:layout_below="@+id/side_navigation_right_title"
+        android:layout_marginLeft="12dp"
+        android:text="Autore"
+        android:textColor="@color/light_gray"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/side_navigation_right_fixyear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/side_navigation_right_title"
+        android:layout_below="@+id/side_navigation_right_author"
+        android:layout_marginLeft="12dp"
+        android:text="Anno"
+        android:textColor="@color/light_gray"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/side_navigation_right_topline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:text="Ricerca avanzata"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/side_navigation_right_topline2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/side_navigation_right_topline"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2.5dp"
+        android:layout_marginTop="2dp"
+        android:background="@android:color/holo_blue_dark"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/side_navigation_right_buttonSearch"
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:layout_below="@+id/side_navigation_right_buttonReset"
+        android:text="Cerca"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="13sp" />
+
+    <Button
+        android:id="@+id/side_navigation_right_buttonReset"
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:layout_below="@+id/side_navigation_right_year"
+        android:layout_marginTop="3dp"
+        android:text="Resetta"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="13sp" />
+
+</RelativeLayout>

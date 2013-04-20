@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_dark"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textViewLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="132dp"
+        android:text="SellMyBook"
+        android:textColor="@color/side_navigation_background"
+        android:textStyle="bold"
+        android:textSize="35sp"
+         />
+
+    <TextView
+        android:id="@+id/textViewLogoDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewLogo"
+        android:gravity="center"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/background_gray"
+        android:text=" Fai il login con Facebook per iniziare subito a trovare o vendere libri con la rapidità e semplicità che solo SellMyBook è in grado di offrire!"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/textViewLogoDesc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="77dp"
+        android:background="@layout/button_login"
+        />
+
+</RelativeLayout>

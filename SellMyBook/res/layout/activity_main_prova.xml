@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_gray"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true" />
+
+    <LinearLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/tabNotes"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Appunti" />
+
+        <TextView
+            android:id="@+id/tabBooks"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:text="Libri" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_gray_darker"
+        android:orientation="horizontal"
+        android:paddingTop="6dp" >
+
+        <TextView
+            android:id="@+id/textViewSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tabs"
+            android:layout_marginBottom="0.1dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="3dp"
+            android:text="Parole chiave o ISBN"
+            android:textSize="9sp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/editTextSearch"
+            android:layout_width="fill_parent"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textViewSearch"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="43dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_rounded_corners"
+            android:ems="10"
+            android:hint="Parole chiave o ISBN"
+            android:maxLines="1"
+            android:paddingLeft="13dp"
+            android:paddingRight="5dp"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/buttonCamera"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textViewSearch"
+            android:layout_marginRight="8dp"
+            android:background="@layout/button_camera"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/textViewLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/editTextSearch"
+            android:layout_marginTop="5dp"
+            android:background="@color/line_gray"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/textViewLine2"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/textViewLine"
+            android:background="@android:color/background_light"
+            android:textSize="8sp" />
+    </RelativeLayout>
+
+    
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit"
+        android:background="@drawable/book_list_item_layout"
+        android:descendantFocusability="blocksDescendants"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false" >
+    </ListView>
+
+</RelativeLayout>

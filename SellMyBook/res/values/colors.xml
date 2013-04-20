@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="side_navigation_background">#303030</color>
+    <color name="side_navigation_outside_background">#7000</color>
+    <color name="side_navigation_list_divider_color">#4f4f4f</color>
+    <color name="side_navigation_item_text_color">#f3f3f3</color>
+    <color name="light_gray">#E8EAED</color>
+    <color name="light_light_gray">#F7F7F7</color>
+    <color name="background_gray">#EEEEEE</color>
+    <color name="background_gray_darker">#E8E8E8</color>
+    <color name="line_gray">#C8C8C8</color>
+    <color name="line_left">#D5D5D5</color>
+    <color name="line_bottom">#B7B7B7</color>
+    <color name="blue_marco">#006EAA</color>
+    <color name="blue_listview">#87D2E6</color>
+
+</resources>

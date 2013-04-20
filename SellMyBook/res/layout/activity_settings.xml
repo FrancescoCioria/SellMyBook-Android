@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@android:id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/textViewSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="6.5dp"
+        android:layout_marginTop="5dp"
+        android:text="Parole chiave"
+        android:textSize="10sp" />
+
+    <EditText
+        android:id="@+id/editTextSearch"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@+id/textViewSearch"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@android:drawable/editbox_dropdown_light_frame"
+        android:ems="10"
+        android:maxLines="1"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textViewLine"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_below="@+id/editTextSearch"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/darker_gray"
+        android:textSize="8sp" />
+
+    <Button
+        android:id="@+id/buttonLog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewLine"
+        android:text="Login"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/buttonSearch"
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:layout_below="@+id/textViewLine"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="3dp"
+        android:background="@layout/button_green"
+        android:shadowColor="@android:color/background_light"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="3"
+        android:text="Cerca"
+        android:textColor="@android:color/background_light"
+        android:textSize="13sp" />
+
+    <Button
+        android:id="@+id/buttonReset"
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:layout_below="@+id/buttonSearch"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:text="ResettaSettings"
+        android:textSize="13sp" />
+
+</RelativeLayout>

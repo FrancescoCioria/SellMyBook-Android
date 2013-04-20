@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/side_navigation_menu_item1"
+        android:icon="@drawable/ic_action_cercalibri"
+        android:title="Cerca libri"/>
+    <item
+        android:id="@+id/side_navigation_menu_item2"
+        android:icon="@drawable/money_piggy_bank2"
+        android:title="Vendi libri"/>
+    <item
+        android:id="@+id/side_navigation_menu_item3"
+        android:icon="@drawable/ic_action_listadesideri"
+        android:title="Lista dei desideri"/>
+    <item
+        android:id="@+id/side_navigation_menu_item4"
+        android:icon="@drawable/ic_action_account"
+        android:title="Account"/>
+    <item
+        android:id="@+id/side_navigation_menu_item5"
+        android:icon="@drawable/ic_action_logout"
+        android:title="Impostazioni"/>
+    <item
+        android:id="@+id/side_navigation_menu_item6"
+        android:icon="@drawable/ic_action_logout"
+        android:title="Logout"/>
+
+</menu>

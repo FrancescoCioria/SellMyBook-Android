@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_gray"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/login_final_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView1"
+        android:layout_alignLeft="@+id/login_final_buttonContinue"
+        android:layout_alignRight="@+id/login_final_buttonContinue"
+        android:layout_marginTop="88dp"
+        android:gravity="center"
+        android:text="@string/login_final"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/holo_blue_dark" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="0.1dp"
+        android:layout_centerInParent="true" />
+
+    <Button
+        android:id="@+id/login_final_buttonContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:background="@layout/button_green"
+        android:minWidth="200dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="5dp"
+        android:textSize="13sp"
+        android:text="Entra in SellMyBook"
+        android:textColor="@color/background_gray" />
+
+</RelativeLayout>

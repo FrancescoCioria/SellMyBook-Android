@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_gray"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_gray_darker"
+        android:orientation="horizontal"
+        android:paddingTop="8dp" >
+
+        <LinearLayout
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/edit_text_rounded_corners"
+            android:orientation="horizontal"
+             >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="LIBRI IN VENDITA"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="LIBRI VENDUTI"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/text"
+            android:layout_marginTop="7dp"
+            android:background="@color/line_gray"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/textViewLine3"
+            android:layout_width="0.1dp"
+            android:layout_height="29dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="4dp"
+            android:background="@color/line_gray"
+            android:textSize="8sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textViewLine"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_below="@+id/edit"
+        android:background="@android:color/background_light"
+        android:textSize="8sp" />
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit"
+        android:minHeight="100dp" >
+    </ListView>
+
+</RelativeLayout>
