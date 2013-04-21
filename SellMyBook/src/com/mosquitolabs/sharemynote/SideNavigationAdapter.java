@@ -11,16 +11,16 @@ import android.widget.TextView;
 
 public class SideNavigationAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
-	private MainActivity parentActivity;
+	private BaseActivity parentActivity;
 	private ArrayList<SideNavigationItem> menuItems;
 
 	private final static int LOGGED_OUT = 0;
 	private final static int LOGGED_IN = 1;
 
-	public SideNavigationAdapter(int menu, MainActivity context) {
+	public SideNavigationAdapter(int menu, BaseActivity context) {
 		parentActivity = context;
 
-		//menuItems = parentActivity.getMenuItems();
+		menuItems = parentActivity.getMenuItems();
 		inflater = LayoutInflater.from(parentActivity);
 	}
 
@@ -56,21 +56,7 @@ public class SideNavigationAdapter extends BaseAdapter {
 
 		SideNavigationItem item = menuItems.get(position);
 
-		// CAMBIATO //
-		if (position != menuItems.size() - 1) {
-			holder.text.setText(menuItems.get(position).getText());
-		} else {
-			switch (parentActivity.getLogState()) {
-			case LOGGED_IN:
-				holder.text.setText("Logout");
-				break;
-
-			case LOGGED_OUT:
-				holder.text.setText("Logout");
-				break;
-			}
-		}
-		// STOP CAMBIO//
+		holder.text.setText(menuItems.get(position).getText());
 
 		if (item.getIcon() != SideNavigationItem.DEFAULT_ICON_VALUE) {
 			holder.icon.setVisibility(View.VISIBLE);

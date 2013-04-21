@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/topBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="@color/background_gray"
+         >
+         
+        
+        
+
+        <Button
+            android:id="@+id/buttonBuy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:lines="2"
+            android:textSize="13sp"
+            android:background="@layout/button_green"
+            android:textColor="@android:color/background_light"
+            android:text="Compra il libro\nche ti serve!"
+             />
+
+        <TextView
+            android:id="@+id/descriptionPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+			android:layout_toLeftOf="@+id/buttonBuy"
+			android:textColor="@color/side_navigation_background"
+            android:text="Qui sotto trovi la lista completa di tutte le tue transazioni." />
+        
+    </RelativeLayout>
+
+    <com.viewpagerindicator.TitlePageIndicator
+        android:id="@+id/titles"
+        android:layout_width="fill_parent"
+        android:layout_below="@+id/topBar"
+        android:layout_height="wrap_content" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/tabs"
+        android:layout_below="@+id/titles" />
+
+</RelativeLayout>

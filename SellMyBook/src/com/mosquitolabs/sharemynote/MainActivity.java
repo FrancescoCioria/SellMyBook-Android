@@ -56,15 +56,15 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockActivity;
 import com.devspark.sidenavigation.SideNavigationView;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.slidingmenu.lib.SlidingMenu;
+import com.slidingmenu.lib.app.SlidingActivity;
 
-public class MainActivity extends SherlockActivity {
+public class MainActivity extends BaseActivity {
 
 	private int logState = 0;
 	private int bookPicture = 0;
@@ -78,18 +78,22 @@ public class MainActivity extends SherlockActivity {
 
 	private final static int LOGGED_OUT = 0;
 	private final static int LOGGED_IN = 1;
-	private final static int LEFT = 0;
-	private final static int CENTER = 1;
-	private final static int RIGHT = 2;
+
+
+	private final static int BUY = 0;
+	private final static int SELL = 1;
+	private final static int WANTED = 2;
+	private final static int ACCOUNT = 3;
+	private final static int SETTINGS = 4;
+	private final static int LICENSE = 5;
 
 	private static final String[] TITLES_BUY = { "Tutti",
 			"Transazioni in corso", "Libri comprati" };
 
-	private ListView listViewSideMenu;
+	private ListView listViewSlidingMenu;
 	private ListView listViewRight;
 
 	private EditText editSearch;
-	
 
 	private RelativeLayout welcome;
 
@@ -112,9 +116,11 @@ public class MainActivity extends SherlockActivity {
 	private LinearLayout triangle;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+
 		this.setTheme(com.actionbarsherlock.R.style.Sherlock___Theme_DarkActionBar);
 		super.onCreate(savedInstanceState);
+		// setBehindContentView(R.layout.menu_frame);
 		setContentView(R.layout.welcome);
 		getSupportActionBar().hide();
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -146,6 +152,7 @@ public class MainActivity extends SherlockActivity {
 			loginPager.setAdapter(new LoginPagerAdapter(this));
 			loginPager.setPagingEnabled(false);
 		} else {
+
 			initialize();
 		}
 
@@ -195,9 +202,9 @@ public class MainActivity extends SherlockActivity {
 			slidingMenu.toggle();
 			break;
 
-		case R.id.menu_search:
-
-			contactServer();
+		case R.id.side_navigation_menu_item1:
+			toast("ciao");
+			// contactServer();
 
 			break;
 		default:
@@ -211,51 +218,89 @@ public class MainActivity extends SherlockActivity {
 	}
 
 	public void initialize() {
-		setContentView(R.layout.main);
-
-		slidingMenu = (SlidingMenu) findViewById(R.id.slidingmenulayout);
-		slidingMenu.setMode(SlidingMenu.LEFT);
-		slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		slidingMenu.setShadowWidth(10);
-		slidingMenu.setShadowDrawable(R.drawable.side_navigation_shadow_right);
-		Display display = getWindowManager().getDefaultDisplay();
-		Point size = new Point();
-		display.getSize(size);
-		int width = size.x;
-		int height = size.y;
-		slidingMenu.setBehindOffset(width / 7);
-		slidingMenu.setFadeDegree(0.75f);
-		slidingMenu.setMenu(R.layout.side_navigation_left);
-		slidingMenu.setActivated(true);
-		slidingMenu.setContent(R.layout.buy);
-
+		// setContentView(R.layout.main);
+		slidingMenu = getSlidingMenu();
+		listViewSlidingMenu = getSlidingMenuList();
+		// listViewRight =
+		// (ListView)slidingMenu.getMenu().findViewById(R.id.side_navigation_listview);
+		getSupportActionBar().show();
+		getSupportActionBar().setBackgroundDrawable(
+				new ColorDrawable(Color.rgb(0, 110, 170)));
 		if (loginPager != null) {
 			loginPager.invalidate();
 		}
 
-		getSupportActionBar().show();
-		getSupportActionBar().setBackgroundDrawable(
-				new ColorDrawable(Color.rgb(0, 110, 170)));
-
-		final ListView list = (ListView) slidingMenu.getMenu().findViewById(
-				R.id.side_navigation_listview);
-		list.setOnItemClickListener(new OnItemClickListener() {
+		listViewSlidingMenu.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
-				switch (list.getChildAt(position).getId()) {
 
+				switch (position) {
+				case BUY:
+					initializeBuy();
+					break;
+				case WANTED:
+					initializeWanted();
+					break;
+				case SELL:
+					initializeSell();
+					break;
+				case ACCOUNT:
+					toast("account");
+					break;
+				case SETTINGS:
+					toast("settings");
+					break;
+				case LICENSE:
+					toast("license");
+					break;
 				}
+
 			}
 		});
 
-		// initializeSideView();
-		// initializeMain();
+		initializeBuy();
+
 		cleanDirectory();
 	}
 
-	public void initializeMain(View v) {
-		// listView = (ListView) v.findViewById(R.id.listView1);
+	public void initializeBuy() {
+		slidingMenu.setActivated(true);
+		setContentView(R.layout.buy);
+		slidingMenu.toggle();
+
+	}
+
+	public void initializeWanted() {
+		slidingMenu.setActivated(true);
+		setContentView(R.layout.wanted);
+		slidingMenu.toggle();
+
+	}
+
+	public void initializeSell() {
+		slidingMenu.setActivated(true);
+
+		setContentView(R.layout.sell);
+		slidingMenu.toggle();
+
+	}
+
+	public void initializeAccount() {
+		slidingMenu.setActivated(true);
+		setContentView(R.layout.buy);
+
+	}
+
+	public void initializeSettings() {
+		slidingMenu.setActivated(true);
+		setContentView(R.layout.buy);
+
+	}
+
+	public void initializeLicense() {
+		slidingMenu.setActivated(true);
+		setContentView(R.layout.buy);
 
 	}
 
@@ -617,23 +662,7 @@ public class MainActivity extends SherlockActivity {
 		loginPager.setCurrentItem(currentLoginTab);
 	}
 
-	public void refreshActionBar(int tab) {
-		switch (tab) {
-		case LEFT:
-			getSupportActionBar().setTitle("Acquisti");
-			break;
-
-		case CENTER:
-			getSupportActionBar().setTitle("Libri osservati");
-
-			break;
-
-		case RIGHT:
-			getSupportActionBar().setTitle("Vendite");
-			break;
-		}
-	}
-
+	
 	public void initializeRight(View v) {
 
 		listViewRight = (ListView) v
