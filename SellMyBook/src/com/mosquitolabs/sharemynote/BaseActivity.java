@@ -12,6 +12,8 @@ import android.view.Display;
 import android.widget.ListView;
 
 import com.actionbarsherlock.view.MenuItem;
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingActivity;
 
@@ -27,15 +29,15 @@ public class BaseActivity extends SlidingActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
 
 		setBehindContentView(R.layout.menu_frame);
 
 		SlidingMenu slidingMenu = getSlidingMenu();
 
 		slidingMenu.setMode(SlidingMenu.LEFT);
-		slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 		slidingMenu.setShadowWidth(10);
 		slidingMenu.setShadowDrawable(R.drawable.side_navigation_shadow_right);
 		Display display = getWindowManager().getDefaultDisplay();
@@ -148,9 +150,8 @@ public class BaseActivity extends SlidingActivity {
 			return getResources().getString(Integer.valueOf(id));
 		}
 	}
-	
-	
-	public ListView getSlidingMenuList(){
+
+	public ListView getSlidingMenuList() {
 		return list;
 	}
 

@@ -29,29 +29,24 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.xmlpull.v1.XmlPullParser;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.XmlResourceParser;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -61,8 +56,11 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseObject;
 import com.slidingmenu.lib.SlidingMenu;
-import com.slidingmenu.lib.app.SlidingActivity;
+import com.viewpagerindicator.TitlePageIndicator;
 
 public class MainActivity extends BaseActivity {
 
@@ -71,14 +69,8 @@ public class MainActivity extends BaseActivity {
 
 	private int currentLoginTab = 0;
 
-	private ArrayList<SideNavigationItem> menuItems;
-
-	private static final String LOG_TAG = SideNavigationAdapter.class
-			.getSimpleName();
-
 	private final static int LOGGED_OUT = 0;
 	private final static int LOGGED_IN = 1;
-
 
 	private final static int BUY = 0;
 	private final static int SELL = 1;
@@ -87,8 +79,15 @@ public class MainActivity extends BaseActivity {
 	private final static int SETTINGS = 4;
 	private final static int LICENSE = 5;
 
+	private final static int COLOR_BACKGROUND_GRAY = Color.rgb(238, 238, 238);
+	private final static int COLOR_BLUE_MARCO = Color.rgb(0, 110, 170);
+	private final static int COLOR_DARK_GRAY = Color.rgb(38, 38, 38);
+
 	private static final String[] TITLES_BUY = { "Tutti",
 			"Transazioni in corso", "Libri comprati" };
+
+	private static final String[] TITLES_SELL = { "Tutti", "In vendita",
+			"Transazioni in corso", "Libri venduti" };
 
 	private ListView listViewSlidingMenu;
 	private ListView listViewRight;
@@ -102,7 +101,6 @@ public class MainActivity extends BaseActivity {
 	private SharedPreferences mPrefs;
 	private Session session;
 	private Session.StatusCallback statusCallback = new SessionStatusCallback();
-
 	private static final List<String> READ_PERMISSIONS = Arrays.asList(
 			"user_likes", "user_events", "user_birthday");
 
@@ -111,24 +109,29 @@ public class MainActivity extends BaseActivity {
 	private SlidingMenu slidingMenu;
 
 	private CustomViewPager loginPager;
-	private ViewPager mainPager;
 
-	private LinearLayout triangle;
+	private ViewPager pagerBuy;
+	private ViewPager pagerSell;
+
+	private TitlePageIndicator indicatorBuy;
+	private TitlePageIndicator indicatorSell;
+	
+	private BookCollection bookCollection = BookCollection.getInstance();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		this.setTheme(com.actionbarsherlock.R.style.Sherlock___Theme_DarkActionBar);
 		super.onCreate(savedInstanceState);
-		// setBehindContentView(R.layout.menu_frame);
+		Parse.initialize(this, "ZI3LPjIiwQMdyNpBiRsl4vhLKUNXe196Hyw2NKH9",
+				"pf1HuTyDqXUmqJ6EhigzKx1tAJ2jwmgGACC9w3nx");
+		ParseAnalytics.trackAppOpened(getIntent());
 		setContentView(R.layout.welcome);
 		getSupportActionBar().hide();
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-		parseXml(R.menu.menu_sidebar);
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-		// loginPager.setOverScrollMode(View.OVER_SCROLL_NEVER);
 		session = Session.getActiveSession();
 		if (session == null) {
 			if (savedInstanceState != null) {
@@ -152,7 +155,6 @@ public class MainActivity extends BaseActivity {
 			loginPager.setAdapter(new LoginPagerAdapter(this));
 			loginPager.setPagingEnabled(false);
 		} else {
-
 			initialize();
 		}
 
@@ -202,11 +204,6 @@ public class MainActivity extends BaseActivity {
 			slidingMenu.toggle();
 			break;
 
-		case R.id.side_navigation_menu_item1:
-			toast("ciao");
-			// contactServer();
-
-			break;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -218,18 +215,18 @@ public class MainActivity extends BaseActivity {
 	}
 
 	public void initialize() {
-		// setContentView(R.layout.main);
-		slidingMenu = getSlidingMenu();
-		listViewSlidingMenu = getSlidingMenuList();
-		// listViewRight =
-		// (ListView)slidingMenu.getMenu().findViewById(R.id.side_navigation_listview);
+		// activate actionbar
 		getSupportActionBar().show();
 		getSupportActionBar().setBackgroundDrawable(
 				new ColorDrawable(Color.rgb(0, 110, 170)));
+		// invalidate login viewpager
 		if (loginPager != null) {
 			loginPager.invalidate();
 		}
 
+		// initialize slidingMenu
+		slidingMenu = getSlidingMenu();
+		listViewSlidingMenu = getSlidingMenuList();
 		listViewSlidingMenu.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
@@ -259,14 +256,74 @@ public class MainActivity extends BaseActivity {
 			}
 		});
 
-		initializeBuy();
+		ParseObject testObject = new ParseObject("TestObject");
+		testObject.put("foo", "bar");
+		testObject.saveInBackground();
 
 		cleanDirectory();
+
+		// go to first tab
+		initializeBuy();
 	}
 
 	public void initializeBuy() {
 		slidingMenu.setActivated(true);
 		setContentView(R.layout.buy);
+
+		if (indicatorSell != null) {
+			indicatorSell.invalidate();
+		}
+		indicatorBuy = (TitlePageIndicator) findViewById(R.id.indicator);
+		indicatorBuy.setTitles(TITLES_BUY);
+		indicatorBuy.setBackgroundColor(COLOR_BACKGROUND_GRAY);
+		indicatorBuy.setFooterColor(COLOR_BLUE_MARCO);
+		indicatorBuy
+				.setFooterIndicatorStyle(TitlePageIndicator.IndicatorStyle.Triangle);
+		indicatorBuy.setTextColor(COLOR_DARK_GRAY);
+		indicatorBuy.setSelectedColor(COLOR_DARK_GRAY);
+		indicatorBuy.setTextSize(17);
+
+		pagerBuy = (ViewPager) findViewById(R.id.viewpager);
+		pagerBuy.setAdapter(new ViewPagerAdapterBuy(this));
+		indicatorBuy.setViewPager(pagerBuy);
+
+		slidingMenu.toggle();
+
+	}
+
+	public void initializeSell() {
+		slidingMenu.setActivated(true);
+		setContentView(R.layout.sell);
+
+		if (indicatorBuy != null) {
+			indicatorBuy.invalidate();
+		}
+		indicatorSell = (TitlePageIndicator) findViewById(R.id.indicator);
+		indicatorSell.setTitles(TITLES_SELL);
+		indicatorSell.setBackgroundColor(COLOR_BACKGROUND_GRAY);
+		indicatorSell
+				.setFooterIndicatorStyle(TitlePageIndicator.IndicatorStyle.Triangle);
+		indicatorSell.setTextColor(COLOR_DARK_GRAY);
+		indicatorSell.setSelectedColor(COLOR_DARK_GRAY);
+		indicatorSell.setTextSize(17);
+
+
+		pagerSell = (ViewPager) findViewById(R.id.viewpager);
+		pagerSell.setAdapter(new ViewPagerAdapterSell(this));
+		indicatorSell.setViewPager(pagerSell);
+		
+		BookData b1 = new BookData();
+		BookData b2 = new BookData();
+		BookData b3 = new BookData();
+		BookData b4 = new BookData();
+		b2.ID="2";
+		b3.ID="3";
+		b4.ID="4";
+		bookCollection.addBookToList(bookCollection.getSellAll(), b1);
+		bookCollection.addBookToList(bookCollection.getSellAll(), b2);
+		bookCollection.addBookToList(bookCollection.getSellAll(), b3);
+		bookCollection.addBookToList(bookCollection.getSellAll(), b4);
+
 		slidingMenu.toggle();
 
 	}
@@ -274,31 +331,30 @@ public class MainActivity extends BaseActivity {
 	public void initializeWanted() {
 		slidingMenu.setActivated(true);
 		setContentView(R.layout.wanted);
-		slidingMenu.toggle();
 
-	}
-
-	public void initializeSell() {
-		slidingMenu.setActivated(true);
-
-		setContentView(R.layout.sell);
 		slidingMenu.toggle();
 
 	}
 
 	public void initializeAccount() {
+		// IMPLEMENTARE ACTIVITY SEPARATA
+
 		slidingMenu.setActivated(true);
 		setContentView(R.layout.buy);
 
 	}
 
 	public void initializeSettings() {
+		// IMPLEMENTARE ACTIVITY SEPARATA (SE SETTINGS NECESSARIE...DA VEDERE)
+
 		slidingMenu.setActivated(true);
 		setContentView(R.layout.buy);
 
 	}
 
 	public void initializeLicense() {
+		// IMPLEMENTARE ACTIVITY SEPARATA
+
 		slidingMenu.setActivated(true);
 		setContentView(R.layout.buy);
 
@@ -500,61 +556,6 @@ public class MainActivity extends BaseActivity {
 		});
 	}
 
-	private void parseXml(int menu) {
-		menuItems = new ArrayList<SideNavigationItem>();
-		try {
-			XmlResourceParser xrp = getResources().getXml(menu);
-			xrp.next();
-			int eventType = xrp.getEventType();
-			while (eventType != XmlPullParser.END_DOCUMENT) {
-				if (eventType == XmlPullParser.START_TAG) {
-					String elemName = xrp.getName();
-					if (elemName.equals("item")) {
-						String textId = xrp.getAttributeValue(
-								"http://schemas.android.com/apk/res/android",
-								"title");
-						String iconId = xrp.getAttributeValue(
-								"http://schemas.android.com/apk/res/android",
-								"icon");
-						String resId = xrp.getAttributeValue(
-								"http://schemas.android.com/apk/res/android",
-								"id");
-						SideNavigationItem item = new SideNavigationItem();
-						item.setId(Integer.valueOf(resId.replace("@", "")));
-						item.setText(resourceIdToString(textId));
-						if (iconId != null) {
-							try {
-								item.setIcon(Integer.valueOf(iconId.replace(
-										"@", "")));
-							} catch (NumberFormatException e) {
-								Log.d(LOG_TAG, "Item " + item.getId()
-										+ " not have icon");
-							}
-						}
-						if ((item.getText().toString().equals("Logout") && getLogState() == LOGGED_OUT)
-								|| (item.getText().toString().equals("Login") && getLogState() == LOGGED_IN)) {
-						} else {
-							menuItems.add(item);
-						}
-
-					}
-				}
-				eventType = xrp.next();
-			}
-		} catch (Exception e) {
-			Log.w(LOG_TAG, e);
-		}
-	}
-
-	private String resourceIdToString(String resId) {
-		if (!resId.contains("@")) {
-			return resId;
-		} else {
-			String id = resId.replace("@", "");
-			return getResources().getString(Integer.valueOf(id));
-		}
-	}
-
 	public static String convertStreamToString(InputStream inputStream)
 			throws IOException {
 		if (inputStream != null) {
@@ -660,17 +661,6 @@ public class MainActivity extends BaseActivity {
 	public void loginPagerNextPage() {
 		currentLoginTab++;
 		loginPager.setCurrentItem(currentLoginTab);
-	}
-
-	
-	public void initializeRight(View v) {
-
-		listViewRight = (ListView) v
-				.findViewById(R.id.activity_main_right_listView);
-
-		listViewRight.setFooterDividersEnabled(false);
-		listViewRight.setDivider(null);
-		listViewRight.setDividerHeight(0);
 	}
 
 	public ArrayList<BookData> getBookList() {

@@ -17,14 +17,14 @@
             <corners android:radius="5dp" />
         </shape></item>
     <item android:state_focused="true" android:state_pressed="false"><shape>
-            <solid android:color="#FFFFFF" />
+            <solid android:color="#006EAA" />
 
             <stroke android:width="0.7dp" android:color="#BDBDBD" />
 
             <corners android:radius="5dp" />
         </shape></item>
     <item android:state_focused="false" android:state_pressed="false"><shape>
-            <gradient android:angle="270" android:centerColor="#FFFFFF" android:endColor="#FFFFFF" android:startColor="#F2F2F2" />
+            <gradient android:angle="270" android:centerColor="#006EAA" android:endColor="#006EAA" android:startColor="#006EAA" />
 
             <stroke android:width="0.7dp" android:color="#BDBDBD" />
 

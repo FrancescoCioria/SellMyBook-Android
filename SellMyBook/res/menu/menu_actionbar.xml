@@ -1,26 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item
-        android:id="@+id/menu_search"
-        android:icon="@drawable/ic_action_cercalibri_adv"
-        android:showAsAction="never"
-        android:title="Ricerca avanzata"/>
-    <item
-        android:id="@+id/menu_buy"
-        android:icon="@drawable/ic_action_basket"
-        android:showAsAction="always"
-        android:title="Compra il libro che ti serve!"/>
-    <item
-        android:id="@+id/menu_sell"
-        android:icon="@drawable/ic_action_piggy"
-        android:showAsAction="always"
-        android:title="Vendi il tuo libro!"/>
-    <item
-        android:id="@+id/menu_settings"
-        android:icon="@drawable/ic_action_settings"
-        android:showAsAction="always"
-        
-        android:title="Impostazioni"/>
-
 </menu>
