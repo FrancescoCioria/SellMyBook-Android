@@ -218,7 +218,7 @@ public class MainActivity extends BaseActivity {
 		// activate actionbar
 		getSupportActionBar().show();
 		getSupportActionBar().setBackgroundDrawable(
-				new ColorDrawable(Color.rgb(0, 110, 170)));
+				new ColorDrawable(COLOR_BLUE_MARCO));
 		// invalidate login viewpager
 		if (loginPager != null) {
 			loginPager.invalidate();
