@@ -7,4 +7,8 @@ Facebook SDK ----> https://www.dropbox.com/sh/rkjxq266h7ey569/mOTabzXLes
 ActionBarSherlock ----> https://www.dropbox.com/sh/e2pys6z7pingh7w/nO1ZQfmBZw
 ViewPagerIndicator ----> https://www.dropbox.com/sh/w9ev5xyb0yvi0fi/9KaWtnuiJC
 
-In tutti e tre i casi il link punta alla cartella contenitrice quindi dentro troverete esattamente la libreria che sto usando in questo momento, sia essa la più aggiornata o no.
+Inoltre dovrete aggiungere il jar di Parse (copiate l'intera cartella nella cartella "libs" del progetto e poi da eclipse fate destro sul .jar->build path->add to build path):
+
+Parse ----> https://www.dropbox.com/sh/ttkbysrk52tin7r/4ORK2UNK48
+
+In tutti e quattro i casi il link punta alla cartella contenitrice quindi anche se dovessi scaricare una versione aggiornata dovreste comunque poterla vedere con gli stessi link.
