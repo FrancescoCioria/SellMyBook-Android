@@ -43,15 +43,16 @@ import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.devspark.sidenavigation.SideNavigationView;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -75,9 +76,8 @@ public class MainActivity extends BaseActivity {
 	private final static int BUY = 0;
 	private final static int SELL = 1;
 	private final static int WANTED = 2;
-	private final static int ACCOUNT = 3;
-	private final static int SETTINGS = 4;
-	private final static int LICENSE = 5;
+	private final static int SETTINGS = 3;
+	private final static int LICENSE = 4;
 
 	private final static int COLOR_BACKGROUND_GRAY = Color.rgb(238, 238, 238);
 	private final static int COLOR_BLUE_MARCO = Color.rgb(0, 110, 170);
@@ -96,8 +96,6 @@ public class MainActivity extends BaseActivity {
 
 	private RelativeLayout welcome;
 
-	SideNavigationView rightMenu;
-
 	private SharedPreferences mPrefs;
 	private Session session;
 	private Session.StatusCallback statusCallback = new SessionStatusCallback();
@@ -113,9 +111,12 @@ public class MainActivity extends BaseActivity {
 	private ViewPager pagerBuy;
 	private ViewPager pagerSell;
 
+	private Button buttonBuy;
+	private Button buttonSell;
+
 	private TitlePageIndicator indicatorBuy;
 	private TitlePageIndicator indicatorSell;
-	
+
 	private BookCollection bookCollection = BookCollection.getInstance();
 
 	@Override
@@ -242,9 +243,7 @@ public class MainActivity extends BaseActivity {
 				case SELL:
 					initializeSell();
 					break;
-				case ACCOUNT:
-					toast("account");
-					break;
+
 				case SETTINGS:
 					toast("settings");
 					break;
@@ -287,6 +286,18 @@ public class MainActivity extends BaseActivity {
 		pagerBuy.setAdapter(new ViewPagerAdapterBuy(this));
 		indicatorBuy.setViewPager(pagerBuy);
 
+		buttonBuy = (Button) findViewById(R.id.buttonBuy);
+
+		buttonBuy.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent localIntent = new Intent(MainActivity.this,
+						SearchBuyActivity.class);
+				startActivity(localIntent);
+			}
+		});
+
 		slidingMenu.toggle();
 
 	}
@@ -307,18 +318,29 @@ public class MainActivity extends BaseActivity {
 		indicatorSell.setSelectedColor(COLOR_DARK_GRAY);
 		indicatorSell.setTextSize(17);
 
-
 		pagerSell = (ViewPager) findViewById(R.id.viewpager);
 		pagerSell.setAdapter(new ViewPagerAdapterSell(this));
 		indicatorSell.setViewPager(pagerSell);
-		
+
+		buttonSell = (Button) findViewById(R.id.buttonSell);
+
+		buttonSell.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent localIntent = new Intent(MainActivity.this,
+						SearchISBNActivity.class);
+				startActivity(localIntent);
+			}
+		});
+
 		BookData b1 = new BookData();
 		BookData b2 = new BookData();
 		BookData b3 = new BookData();
 		BookData b4 = new BookData();
-		b2.ID="2";
-		b3.ID="3";
-		b4.ID="4";
+		b2.ID = "2";
+		b3.ID = "3";
+		b4.ID = "4";
 		bookCollection.addBookToList(bookCollection.getSellAll(), b1);
 		bookCollection.addBookToList(bookCollection.getSellAll(), b2);
 		bookCollection.addBookToList(bookCollection.getSellAll(), b3);

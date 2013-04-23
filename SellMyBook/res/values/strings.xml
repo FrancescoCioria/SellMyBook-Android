@@ -6,7 +6,7 @@
     <string name="app_id">156839777704523</string>
     <string name="login_introduction">Perfetto, ora hai anche tu un\naccount SellMyBook!\n\nPrima di poter continuare però dobbiamo chiederti il piccolo sforzo di completare questa brevissima compilazione guidata del tuo profilo.</string>
     <string name="login_city">Clicca nel riquadro sottostante e seleziona la città o il paese in cui abiti.</string>
-    <string name="login_university">Clicca nel riquadro sottostante e seleziona l\'università in cui hai studiato o che tutt\'ora frequenti.</string>
+    <string name="login_university">Clicca nei due riquadri sottostanti e seleziona l\'università e il campus in cui hai studiato o che tutt\'ora frequenti.</string>
     <string name="login_final">Ora che il tuo profilo è completo\nsei finalmente pronto per\nentrare nel network di\nSellMyBook.\n\nCosa aspetti? Cicca sul bottone verde!</string>
 
 </resources>

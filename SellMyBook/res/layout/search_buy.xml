@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_gray"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <RelativeLayout
+        android:id="@+id/random"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/fixRandom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profilePicture"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:text="Cerca il tuo libro con parole chiave (titolo, autore..)"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/editRandomSearch"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/fixRandom"
+            android:layout_toLeftOf="@+id/buttonRandomGo"
+            android:textSize="12sp"
+                        android:hint="titolo, autore, editore, anno.."
+            
+            android:background="@drawable/edit_text_rounded_corners" />
+
+        <Button
+            android:id="@+id/buttonRandomGo"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/editRandomSearch"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/fixRandom"
+            android:background="@drawable/ic_action_go" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/line1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/random"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textViewLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/editTextSearch"
+            android:layout_marginTop="5dp"
+            android:background="@color/line_gray"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/textViewLine2"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/textViewLine"
+            android:background="@android:color/background_light"
+            android:textSize="8sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/UniProf"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line1"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/fixUni"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:text="Cerca un libro per università..."
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/editUniversitySearch"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/fixUni"
+            android:layout_centerHorizontal="true"
+                        android:textSize="12sp"
+            android:hint="inserisci l'Università.."
+            android:background="@drawable/edit_text_rounded_corners" />
+
+        <TextView
+            android:id="@+id/fixProfessor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editUniversitySearch"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="10dp"
+            android:text="...e per professore!"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/editProfessorSearch"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/fixProfessor"
+            android:layout_centerHorizontal="true"
+                        android:textSize="12sp"
+                                    android:hint="inserisci il nome del professore.."
+                        
+            
+            android:background="@drawable/edit_text_rounded_corners" />
+
+        <Button
+            android:id="@+id/buttonUniversityGo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/editProfessorSearch"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/ic_action_go"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/line2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/UniProf"
+        android:layout_marginTop="17dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textViewLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/editTextSearch"
+            android:layout_marginTop="5dp"
+            android:background="@color/line_gray"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/textViewLine2"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/textViewLine"
+            android:background="@android:color/background_light"
+            android:textSize="8sp" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/buttonISBNSearch"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/line2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@layout/button_blue"
+        android:text="Cerca per ISBN"
+        android:textColor="@android:color/background_light"
+        android:textSize="14sp" />
+
+</RelativeLayout>

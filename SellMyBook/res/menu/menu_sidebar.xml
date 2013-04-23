@@ -13,10 +13,7 @@
         android:id="@+id/side_navigation_menu_item3"
         android:icon="@drawable/ic_action_listadesideri"
         android:title="Libri che osservi"/>
-    <item
-        android:id="@+id/side_navigation_menu_item4"
-        android:icon="@drawable/ic_action_account"
-        android:title="Account"/>
+   
     <item
         android:id="@+id/side_navigation_menu_item5"
         android:icon="@drawable/ic_action_logout"

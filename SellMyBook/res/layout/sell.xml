@@ -14,7 +14,7 @@
         android:padding="10dp" >
 
         <Button
-            android:id="@+id/buttonBuy"
+            android:id="@+id/buttonSell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -29,7 +29,7 @@
             android:id="@+id/descriptionPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/buttonBuy"
+            android:layout_toLeftOf="@+id/buttonSell"
             android:text="Qui sotto trovi la lista completa di tutte le tue transazioni."
             android:textColor="@color/side_navigation_background" />
     </RelativeLayout>

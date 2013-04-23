@@ -2,32 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@android:color/white"
+     >
 
     <RelativeLayout
         android:id="@+id/topBar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp"
         android:background="@color/background_gray"
-         >
-         
-        
-        
-
-        
+        android:orientation="vertical"
+        android:padding="5dp" >
 
         <TextView
             android:id="@+id/descriptionPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            
-			android:layout_toLeftOf="@+id/buttonBuy"
-			android:textColor="@color/side_navigation_background"
-            android:text="Di seguito trovi la lista completa dei libri che stai osservando. Cliccaci sopra per passare subito alla pagina Dettagli" />
-        
+            android:layout_toLeftOf="@+id/buttonBuy"
+            android:text="Di seguito trovi la lista completa dei libri che stai osservando. Cliccaci sopra per passare subito alla pagina Dettagli"
+            android:textColor="@color/side_navigation_background" />
     </RelativeLayout>
 
-   
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/topBar" >
+    </ListView>
+
 </RelativeLayout>

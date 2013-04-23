@@ -82,7 +82,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/textViewSearch"
             android:layout_marginRight="8dp"
-            android:background="@layout/button_camera"
+            
             android:text="" />
 
         <TextView

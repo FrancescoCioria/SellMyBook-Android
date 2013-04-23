@@ -67,17 +67,17 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/accountLayout"
-        android:background="@android:color/background_dark" >
+        android:background="@color/side_navigation_menu" >
 
         <TextView
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="3dp"
             android:layout_marginLeft="7dp"
-            android:textStyle="bold"
+            android:padding="3dp"
             android:text="Menù"
-            android:textColor="@color/side_navigation_item_text_color" />
+            android:textColor="@color/side_navigation_item_text_color"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <LinearLayout

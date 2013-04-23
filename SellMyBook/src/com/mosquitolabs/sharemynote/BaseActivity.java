@@ -4,16 +4,18 @@ import java.util.ArrayList;
 
 import org.xmlpull.v1.XmlPullParser;
 
+import android.content.Intent;
 import android.content.res.XmlResourceParser;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.actionbarsherlock.view.MenuItem;
-import com.parse.Parse;
-import com.parse.ParseAnalytics;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingActivity;
 
@@ -23,6 +25,7 @@ public class BaseActivity extends SlidingActivity {
 	private SlidingMenu slidingMenu;
 	private ArrayList<SideNavigationItem> menuItems;
 	private ListView list;
+	private RelativeLayout account;
 
 	private static final String LOG_TAG = SideNavigationAdapter.class
 			.getSimpleName();
@@ -47,7 +50,7 @@ public class BaseActivity extends SlidingActivity {
 		int height = size.y;
 		slidingMenu.setBehindOffset(width / 7);
 		slidingMenu.setFadeDegree(0.75f);
-		slidingMenu.setMenu(R.layout.side_navigation_left);
+		slidingMenu.setMenu(R.layout.sliding_menu);
 
 		slidingMenu.setOnOpenListener(new SlidingMenu.OnOpenListener() {
 			@Override
@@ -81,6 +84,17 @@ public class BaseActivity extends SlidingActivity {
 		SideNavigationAdapter adapter = new SideNavigationAdapter(0,
 				BaseActivity.this);
 		list.setAdapter(adapter);
+		
+		account = (RelativeLayout) slidingMenu.getMenu().findViewById(R.id.accountLayout);
+		account.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent localIntent = new Intent(BaseActivity.this,
+						AccountActivity.class);
+				startActivity(localIntent);
+			}
+		});
 
 	}
 

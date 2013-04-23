@@ -19,7 +19,7 @@
 
     <style name="MyTheme" parent="android:Theme.Light">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/holo_orange_light</item>
+        <item name="android:windowBackground">@android:color/holo_blue_light</item>
     </style>
 
     <style name="shadowLinear">
