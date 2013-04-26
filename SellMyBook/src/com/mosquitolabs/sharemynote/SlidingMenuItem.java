@@ -6,7 +6,7 @@ package com.mosquitolabs.sharemynote;
  * @author johnkil
  * 
  */
-class SideNavigationItem {
+class SlidingMenuItem {
 
     public static int DEFAULT_ICON_VALUE = -1;
 

@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class MyCustomAdapterSearch extends BaseAdapter {
 	private LayoutInflater mInflater;
@@ -37,13 +39,29 @@ public class MyCustomAdapterSearch extends BaseAdapter {
 		final BookData book = temp;
 		paramView = mInflater.inflate(R.layout.book_list_item_search, null);
 		localViewHolder = new ViewHolderStarPlaces();
+		localViewHolder.topMargin = (RelativeLayout) paramView.findViewById(R.id.book_list_item_TopMargin);
+		localViewHolder.bottomMargin = (RelativeLayout) paramView.findViewById(R.id.book_list_item_BottomMargin);
 
+		if (paramInt == 0) {
+			localViewHolder.topMargin.setVisibility(View.VISIBLE);
+		} else {
+			localViewHolder.topMargin.setVisibility(View.GONE);
+		}
+
+		if (paramInt == bookCollection.getSearchResult().size() - 1) {
+			localViewHolder.bottomMargin.setVisibility(View.VISIBLE);
+		} else {
+			localViewHolder.bottomMargin.setVisibility(View.GONE);
+		}
 		paramView.setTag(localViewHolder);
 
 		return paramView;
 	}
 
 	static class ViewHolderStarPlaces {
-
+		TextView title;
+		TextView author;
+		RelativeLayout topMargin;
+		RelativeLayout bottomMargin;
 	}
 }

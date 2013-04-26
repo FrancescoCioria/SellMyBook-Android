@@ -8,21 +8,20 @@
     <RelativeLayout
         android:id="@+id/topBar"
         android:layout_width="fill_parent"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:background="@color/background_gray_darker"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="5dp" >
 
         <TextView
             android:id="@+id/results"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="Libri trovati per: &apos;ottimizzazione 2010 mc graw&apos;"
-            android:textColor="@color/side_navigation_background" />
+            android:text="Libri trovati per: 'ottimizzazione 2010 mc graw'"
+            android:textColor="@color/side_navigation_outside_background" />
     </RelativeLayout>
-
+    
     <RelativeLayout
         android:id="@+id/line"
         android:layout_width="fill_parent"
@@ -34,25 +33,27 @@
             android:id="@+id/textViewLine"
             android:layout_width="match_parent"
             android:layout_height="0.1dp"
-            android:background="@color/line_gray" />
+            android:layout_below="@+id/editTextSearch"
+            android:background="@color/line_gray"
+            android:textSize="8sp" />
 
         <TextView
             android:id="@+id/textViewLine2"
             android:layout_width="match_parent"
             android:layout_height="0.1dp"
             android:layout_below="@+id/textViewLine"
-            android:background="@android:color/background_light" />
+            android:background="@android:color/background_light"
+            android:textSize="8sp" />
     </RelativeLayout>
+    
+    
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
+        android:divider="@android:color/transparent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/topBar"
-        android:descendantFocusability="blocksDescendants"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        android:listSelector="@android:color/transparent" >
+        android:layout_below="@+id/line" >
     </ListView>
 
 </RelativeLayout>

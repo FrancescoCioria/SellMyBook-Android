@@ -3,25 +3,24 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/background_gray"
-    android:orientation="vertical"
-     >
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:id="@+id/details"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="145dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/profilePicture"
         android:orientation="vertical"
-        android:padding="10dp" >
+        android:paddingRight="5dp" >
 
         <ImageView
             android:id="@+id/profilePicture"
-            android:layout_width="100dp"
-            android:layout_height="130dp"
+            android:layout_width="105dp"
+            android:layout_height="145dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="5dp"
             android:scaleType="centerCrop"
             android:src="@drawable/book_exampleold" />
 
@@ -29,10 +28,11 @@
             android:id="@+id/title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:layout_toRightOf="@+id/profilePicture"
             android:text="Fondamenti di fisica"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textColor="@color/side_navigation_background"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/author"
@@ -41,52 +41,79 @@
             android:layout_below="@+id/title"
             android:layout_toRightOf="@+id/profilePicture"
             android:text="James S. Walker"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+            android:textColor="@color/side_navigation_outside_background"
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/author"
-            android:layout_marginTop="2dp"
             android:layout_toRightOf="@+id/profilePicture"
             android:text="(2010) - "
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textColor="@color/side_navigation_outside_background"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/publisher"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/author"
-            android:layout_marginTop="2dp"
             android:layout_toRightOf="@+id/year"
             android:text="Pearson"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textColor="@color/side_navigation_outside_background"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/isbn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/publisher"
-            android:layout_marginTop="2dp"
+            android:layout_marginBottom="5dp"
             android:layout_toRightOf="@+id/profilePicture"
             android:text="ISBN: 9788871925851"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textColor="@color/side_navigation_outside_background"
+            android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/usedby"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/isbn"
-            android:layout_marginTop="3dp"
-            android:layout_toRightOf="@+id/profilePicture"
-            android:text="Usato in POLITECNICO da PROF. BALDONE\nUsato in BOCCONI da PROF. RICCO&amp;SCEMO"
-            android:textSize="11sp"
-            android:textStyle="italic" />
+            android:layout_marginTop="2dp"
+            android:orientation="vertical"
+            android:paddingBottom="5dp" >
+
+            <Button
+                android:id="@+id/buttonSell"
+                style="@android:style/Widget.Holo.Button"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_alignLeft="@+id/button"
+                android:layout_alignRight="@+id/isbn"
+                android:layout_below="@+id/button"
+                android:background="@android:color/holo_green_dark"
+                android:padding="5dp"
+                android:text="Vendi questo libro"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/button"
+                style="@android:style/Widget.Holo.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignRight="@+id/usedby"
+                android:layout_below="@+id/usedby"
+                android:layout_marginTop="3dp"
+                android:background="@color/side_navigation_list_divider_color"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:text="Metti in libri osservati"
+                android:textSize="11sp" />
+        </LinearLayout>
     </RelativeLayout>
 
     <LinearLayout
@@ -94,7 +121,8 @@
         android:layout_width="fill_parent"
         android:layout_height="52dp"
         android:layout_below="@+id/details"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:visibility="gone" >
 
         <Button
             android:id="@+id/buttonSellThisBook"
@@ -116,19 +144,57 @@
             android:textColor="@android:color/background_light"
             android:textSize="14sp" />
     </LinearLayout>
-    
-    
-     <RelativeLayout
+
+    <RelativeLayout
         android:id="@+id/line"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/actions"
         android:orientation="vertical" >
 
+        <RelativeLayout
+            android:id="@+id/textViewSeparator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             >
+            <TextView
+            android:id="@+id/textViewLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/usedby"
+            android:background="@color/line_gray" />
+
+        <TextView
+            android:id="@+id/textViewLine2"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/textViewLine"
+            android:background="@android:color/background_light" />
+        
+        
+        </RelativeLayout>
+            
+            
+            
+            
+
+        <TextView
+            android:id="@+id/usedby"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewSeparator"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:padding="10dp"
+            android:text="Usato in Politecnico di Milano dal Prof. Andrea Sianesi"
+            android:textColor="@color/side_navigation_outside_background"
+            android:textSize="11sp" />
+
         <TextView
             android:id="@+id/textViewLine"
             android:layout_width="match_parent"
             android:layout_height="0.1dp"
+            android:layout_below="@+id/usedby"
             android:background="@color/line_gray" />
 
         <TextView
@@ -138,17 +204,16 @@
             android:layout_below="@+id/textViewLine"
             android:background="@android:color/background_light" />
     </RelativeLayout>
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/actions"
+        android:layout_below="@+id/line"
         android:descendantFocusability="blocksDescendants"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
         android:listSelector="@android:color/transparent" >
     </ListView>
-
-    
 
 </RelativeLayout>

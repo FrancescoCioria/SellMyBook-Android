@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class MyCustomAdapterSell extends BaseAdapter {
 	private LayoutInflater mInflater;
@@ -16,6 +18,8 @@ public class MyCustomAdapterSell extends BaseAdapter {
 	private static final int CURRENT = 2;
 	private static final int SOLD = 3;
 
+	private int size;
+
 	public MyCustomAdapterSell(Context paramContext, int currentList) {
 		this.mInflater = LayoutInflater.from(paramContext);
 		this.currentList = currentList;
@@ -25,21 +29,25 @@ public class MyCustomAdapterSell extends BaseAdapter {
 		switch (currentList) {
 		case ALL:
 
-			return bookCollection.getSellAll().size();
+			size = bookCollection.getSellAll().size();
+			break;
 		case SELLING:
 
-			return bookCollection.getSellSelling().size();
+			size = bookCollection.getSellSelling().size();
+			break;
 
 		case CURRENT:
 
-			return bookCollection.getSellCurrent().size();
+			size = bookCollection.getSellCurrent().size();
+			break;
 
 		case SOLD:
 
-			return bookCollection.getSellSold().size();
+			size = bookCollection.getSellSold().size();
+			break;
 
 		}
-		return (0);
+		return (size);
 
 	}
 
@@ -78,6 +86,9 @@ public class MyCustomAdapterSell extends BaseAdapter {
 		final BookData book = temp;
 		paramView = mInflater.inflate(R.layout.book_list_item_search, null);
 		localViewHolder = new ViewHolderStarPlaces();
+		
+		localViewHolder.topMargin = (RelativeLayout) paramView.findViewById(R.id.book_list_item_TopMargin);
+		localViewHolder.bottomMargin = (RelativeLayout) paramView.findViewById(R.id.book_list_item_BottomMargin);
 
 		// CODICE COMUNE //
 
@@ -88,6 +99,17 @@ public class MyCustomAdapterSell extends BaseAdapter {
 		// case current
 
 		// case sold
+		if (paramInt == 0) {
+			localViewHolder.topMargin.setVisibility(View.VISIBLE);
+		} else {
+			localViewHolder.topMargin.setVisibility(View.GONE);
+		}
+
+		if (paramInt == size - 1) {
+			localViewHolder.bottomMargin.setVisibility(View.VISIBLE);
+		} else {
+			localViewHolder.bottomMargin.setVisibility(View.GONE);
+		}
 
 		paramView.setTag(localViewHolder);
 
@@ -95,6 +117,10 @@ public class MyCustomAdapterSell extends BaseAdapter {
 	}
 
 	static class ViewHolderStarPlaces {
+		TextView title;
+		TextView author;
+		RelativeLayout topMargin;
+		RelativeLayout bottomMargin;
 
 	}
 }

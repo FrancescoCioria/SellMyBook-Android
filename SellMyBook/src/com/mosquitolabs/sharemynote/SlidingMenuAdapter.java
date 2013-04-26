@@ -9,15 +9,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class SideNavigationAdapter extends BaseAdapter {
+public class SlidingMenuAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 	private BaseActivity parentActivity;
-	private ArrayList<SideNavigationItem> menuItems;
+	private ArrayList<SlidingMenuItem> menuItems;
 
 	private final static int LOGGED_OUT = 0;
 	private final static int LOGGED_IN = 1;
 
-	public SideNavigationAdapter(int menu, BaseActivity context) {
+	public SlidingMenuAdapter(int menu, BaseActivity context) {
 		parentActivity = context;
 
 		menuItems = parentActivity.getMenuItems();
@@ -54,11 +54,11 @@ public class SideNavigationAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		SideNavigationItem item = menuItems.get(position);
+		SlidingMenuItem item = menuItems.get(position);
 
 		holder.text.setText(menuItems.get(position).getText());
 
-		if (item.getIcon() != SideNavigationItem.DEFAULT_ICON_VALUE) {
+		if (item.getIcon() != SlidingMenuItem.DEFAULT_ICON_VALUE) {
 			holder.icon.setVisibility(View.VISIBLE);
 			holder.icon.setImageResource(menuItems.get(position).getIcon());
 		} else {

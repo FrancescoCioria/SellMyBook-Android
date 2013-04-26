@@ -23,11 +23,11 @@ public class BaseActivity extends SlidingActivity {
 
 	private static final String TAG = "BaseActivity";
 	private SlidingMenu slidingMenu;
-	private ArrayList<SideNavigationItem> menuItems;
+	private ArrayList<SlidingMenuItem> menuItems;
 	private ListView list;
 	private RelativeLayout account;
 
-	private static final String LOG_TAG = SideNavigationAdapter.class
+	private static final String LOG_TAG = SlidingMenuAdapter.class
 			.getSimpleName();
 
 	@Override
@@ -48,7 +48,7 @@ public class BaseActivity extends SlidingActivity {
 		display.getSize(size);
 		int width = size.x;
 		int height = size.y;
-		slidingMenu.setBehindOffset(width / 7);
+		slidingMenu.setBehindOffset(width / 5);
 		slidingMenu.setFadeDegree(0.75f);
 		slidingMenu.setMenu(R.layout.sliding_menu);
 
@@ -81,7 +81,7 @@ public class BaseActivity extends SlidingActivity {
 
 		list = (ListView) slidingMenu.getMenu().findViewById(
 				R.id.side_navigation_listview);
-		SideNavigationAdapter adapter = new SideNavigationAdapter(0,
+		SlidingMenuAdapter adapter = new SlidingMenuAdapter(0,
 				BaseActivity.this);
 		list.setAdapter(adapter);
 		
@@ -110,7 +110,7 @@ public class BaseActivity extends SlidingActivity {
 	}
 
 	private void parseXml(int menu) {
-		menuItems = new ArrayList<SideNavigationItem>();
+		menuItems = new ArrayList<SlidingMenuItem>();
 		try {
 			XmlResourceParser xrp = getResources().getXml(menu);
 			xrp.next();
@@ -128,7 +128,7 @@ public class BaseActivity extends SlidingActivity {
 						String resId = xrp.getAttributeValue(
 								"http://schemas.android.com/apk/res/android",
 								"id");
-						SideNavigationItem item = new SideNavigationItem();
+						SlidingMenuItem item = new SlidingMenuItem();
 						item.setId(Integer.valueOf(resId.replace("@", "")));
 						item.setText(resourceIdToString(textId));
 						if (iconId != null) {
@@ -152,7 +152,7 @@ public class BaseActivity extends SlidingActivity {
 		}
 	}
 
-	public ArrayList<SideNavigationItem> getMenuItems() {
+	public ArrayList<SlidingMenuItem> getMenuItems() {
 		return menuItems;
 	}
 

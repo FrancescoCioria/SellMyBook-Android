@@ -3,14 +3,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="@android:color/white"
+    android:background="@color/background_gray"
      >
 
     <RelativeLayout
         android:id="@+id/topBar"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/background_gray"
+        android:layout_height="40dp"
+        android:background="@color/background_gray_darker"
         android:orientation="vertical"
         android:padding="5dp" >
 
@@ -18,16 +18,43 @@
             android:id="@+id/descriptionPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/buttonBuy"
-            android:text="Di seguito trovi la lista completa dei libri che stai osservando. Cliccaci sopra per passare subito alla pagina Dettagli"
-            android:textColor="@color/side_navigation_background" />
+            android:layout_centerVertical="true"
+            android:text="Libri che stai osservando"
+            android:textColor="@color/side_navigation_outside_background" />
     </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/line"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/topBar"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textViewLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/editTextSearch"
+            android:background="@color/line_gray"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/textViewLine2"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/textViewLine"
+            android:background="@android:color/background_light"
+            android:textSize="8sp" />
+    </RelativeLayout>
+    
+    
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
+        
         android:layout_height="wrap_content"
-        android:layout_below="@+id/topBar" >
+        android:layout_below="@+id/line" >
     </ListView>
 
 </RelativeLayout>

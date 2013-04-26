@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+        android:background="@color/background_gray"
+    
+    
+    >
+<RelativeLayout 
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/background_gray"
@@ -164,13 +173,6 @@
         android:textColor="@android:color/background_light"
         android:textSize="14sp" />
 
-    <Button
-        android:id="@+id/buttonFacebook"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_alignBottom="@+id/profilePicture"
-        android:layout_alignLeft="@+id/details"
-        android:layout_alignRight="@+id/details"
-        android:background="@layout/button_login" />
-
 </RelativeLayout>
+
+</ScrollView>

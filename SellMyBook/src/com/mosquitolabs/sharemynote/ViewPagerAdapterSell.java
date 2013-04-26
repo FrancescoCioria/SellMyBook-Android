@@ -65,6 +65,7 @@ public class ViewPagerAdapterSell extends PagerAdapter {
 			listCurrent = (ListView) v.findViewById(R.id.listView);
 			adapterSellCurrent = new MyCustomAdapterSell(context, CURRENT);
 			listCurrent.setAdapter(adapterSellCurrent);
+			break;
 		case SOLD:
 			v = inflater.inflate(R.layout.sell_sold, null);
 			listSold = (ListView) v.findViewById(R.id.listView);
@@ -91,6 +92,28 @@ public class ViewPagerAdapterSell extends PagerAdapter {
 	@Override
 	public Parcelable saveState() {
 		return null;
+	}
+
+	public void refreshAdapter(int adapter) {
+		switch (adapter) {
+
+		case ALL:
+			adapterSellAll.notifyDataSetChanged();
+			break;
+
+		case SELLING:
+			adapterSellSelling.notifyDataSetChanged();
+
+			break;
+		case CURRENT:
+			adapterSellCurrent.notifyDataSetChanged();
+			break;
+		case SOLD:
+			adapterSellSold.notifyDataSetChanged();
+
+			break;
+
+		}
 	}
 
 }

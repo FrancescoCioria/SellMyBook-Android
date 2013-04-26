@@ -9,42 +9,93 @@
         android:id="@+id/topBar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_gray"
+        android:background="@color/background_gray_darker"
         android:orientation="vertical"
-        android:padding="10dp" >
+        android:padding="7.5dp" >
 
         <Button
             android:id="@+id/buttonBuy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="43dp"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:background="@layout/button_green"
+            android:layout_centerVertical="true"
+            android:background="@layout/button_green_activity_main"
             android:lines="2"
-            android:text="Compra il libro\nche ti serve!"
+            android:padding="3dp"
+            android:text="COMPRA UN\nLIBRO"
             android:textColor="@android:color/background_light"
-            android:textSize="13sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/descriptionPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="7dp"
             android:layout_toLeftOf="@+id/buttonBuy"
-            android:text="Qui sotto trovi la lista completa di tutte le tue transazioni."
-            android:textColor="@color/side_navigation_background" />
+            android:text="@string/desc_buy"
+            android:textColor="@color/side_navigation_background"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/line"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/topBar"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textViewLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/editTextSearch"
+            android:background="@color/line_gray"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/textViewLine2"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/textViewLine"
+            android:background="@android:color/background_light"
+            android:textSize="8sp" />
     </RelativeLayout>
 
     <com.viewpagerindicator.TitlePageIndicator
         android:id="@+id/indicator"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/topBar" />
+        android:layout_below="@+id/line" />
+
+    <RelativeLayout
+        android:id="@+id/line2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/indicator"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textViewLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/editTextSearch"
+            android:background="@color/line_gray"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/textViewLine2"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/textViewLine"
+            android:background="@android:color/background_light"
+            android:textSize="8sp" />
+    </RelativeLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/indicator" />
-
+        android:layout_below="@+id/line2" />
 
 </RelativeLayout>
