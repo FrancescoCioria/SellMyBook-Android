@@ -259,7 +259,7 @@ public class MainActivity extends BaseActivity {
 		cleanDirectory();
 
 		// go to second tab
-		initializeBuy();
+		initializeSell();
 	}
 
 	public void initializeBuy() {
@@ -364,13 +364,17 @@ public class MainActivity extends BaseActivity {
 		BookData b2 = new BookData();
 		BookData b3 = new BookData();
 		BookData b4 = new BookData();
+		b1.sellingState = SOLD;
 		b2.ID = "2";
+		b2.sellingState = SELLING;
 		b3.ID = "3";
+		b3.sellingState = CURRENT;
 		b4.ID = "4";
-		bookCollection.addBookToList(bookCollection.getSellAll(), b1);
-		bookCollection.addBookToList(bookCollection.getSellAll(), b2);
-		bookCollection.addBookToList(bookCollection.getSellAll(), b3);
-		bookCollection.addBookToList(bookCollection.getSellAll(), b4);
+		b4.sellingState = SOLD;
+		bookCollection.addBookToListSell(b1);
+		bookCollection.addBookToListSell(b2);
+		bookCollection.addBookToListSell(b3);
+		bookCollection.addBookToListSell(b4);
 
 		// pagerAdapterSell.refreshAdapter(ALL);
 

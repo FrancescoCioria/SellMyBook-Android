@@ -20,6 +20,8 @@ public class ViewPagerAdapterSell extends PagerAdapter {
 	private ListView listCurrent;
 	private ListView listSold;
 
+	private BookCollection bookCollection = BookCollection.getInstance();
+
 	private MyCustomAdapterSell adapterSellAll;
 	private MyCustomAdapterSell adapterSellSelling;
 	private MyCustomAdapterSell adapterSellCurrent;
@@ -30,6 +32,7 @@ public class ViewPagerAdapterSell extends PagerAdapter {
 
 	public ViewPagerAdapterSell(MainActivity context) {
 		this.context = context;
+		
 	}
 
 	@Override

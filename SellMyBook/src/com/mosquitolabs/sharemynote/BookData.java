@@ -9,6 +9,7 @@ public class BookData implements Serializable {
 	public String originalPrice="";
 	public String price="";
 	public int state;
+	public int sellingState=1;
 	public String year="";
 	public String userUri="";
 	public String resourceUri="";
