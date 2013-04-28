@@ -11,11 +11,11 @@
         android:layout_height="wrap_content"
         android:background="@color/background_gray"
         android:descendantFocusability="blocksDescendants"
+        android:divider="@android:color/transparent"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
-        android:divider="@android:color/transparent"
-        android:listSelector="@android:color/transparent"
-         >
+        android:listSelector="@android:color/transparent" >
+
     </ListView>
 
     <RelativeLayout

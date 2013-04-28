@@ -42,6 +42,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -85,8 +86,8 @@ public class MainActivity extends BaseActivity {
 	private final static int LICENSE = 4;
 
 	private static final int ALL = 0;
-	private static final int SELLING = 1;
-	private static final int CURRENT = 2;
+	private static final int SELLING = 2;
+	private static final int CURRENT = 1;
 	private static final int SOLD = 3;
 
 	private final static int COLOR_BACKGROUND_GRAY = Color.rgb(238, 238, 238);
@@ -96,13 +97,15 @@ public class MainActivity extends BaseActivity {
 	private static final String[] TITLES_BUY = { "Tutti",
 			"Transazioni in corso", "Libri comprati" };
 
-	private static final String[] TITLES_SELL = { "Tutti", "In vendita",
-			"Transazioni in corso", "Libri venduti" };
+	private static final String[] TITLES_SELL = { "Tutti",
+			"Transazioni in corso", "In vendita", "Libri venduti" };
 
 	private ListView listViewSlidingMenu;
 	private ListView listViewRight;
 
 	private EditText editSearch;
+
+	private ViewPagerAdapterSell pagerAdapterSell;
 
 	private RelativeLayout welcome;
 
@@ -148,7 +151,7 @@ public class MainActivity extends BaseActivity {
 
 		session = Session.getActiveSession();
 
-		if (ParseFacebookUtils.getSession() == null) {
+		if (false && ParseFacebookUtils.getSession() == null) {
 			initializeLogin();
 		} else {
 			initialize();
@@ -258,6 +261,26 @@ public class MainActivity extends BaseActivity {
 
 		cleanDirectory();
 
+		BookData b1 = new BookData();
+		BookData b2 = new BookData();
+		BookData b3 = new BookData();
+		BookData b4 = new BookData();
+		b1.sellingState = SOLD;
+		b2.ID = "2";
+		b2.sellingState = SELLING;
+		b3.ID = "3";
+		b3.sellingState = CURRENT;
+		b4.ID = "4";
+		b4.sellingState = SOLD;
+		bookCollection.addBookToListSell(b1);
+		bookCollection.addBookToListSell(b2);
+		bookCollection.addBookToListSell(b3);
+		bookCollection.addBookToListSell(b4);
+
+		bookCollection.initializeSellCurrent();
+		bookCollection.initializeSellSold();
+		bookCollection.initializeSellSelling();
+
 		// go to second tab
 		initializeSell();
 	}
@@ -343,7 +366,7 @@ public class MainActivity extends BaseActivity {
 		indicatorSell.setBackgroundColor(background);
 
 		pagerSell = (ViewPager) findViewById(R.id.viewpager);
-		ViewPagerAdapterSell pagerAdapterSell = new ViewPagerAdapterSell(this);
+		pagerAdapterSell = new ViewPagerAdapterSell(this);
 		pagerSell.setAdapter(pagerAdapterSell);
 		indicatorSell.setViewPager(pagerSell);
 
@@ -359,22 +382,6 @@ public class MainActivity extends BaseActivity {
 				startActivity(localIntent);
 			}
 		});
-
-		BookData b1 = new BookData();
-		BookData b2 = new BookData();
-		BookData b3 = new BookData();
-		BookData b4 = new BookData();
-		b1.sellingState = SOLD;
-		b2.ID = "2";
-		b2.sellingState = SELLING;
-		b3.ID = "3";
-		b3.sellingState = CURRENT;
-		b4.ID = "4";
-		b4.sellingState = SOLD;
-		bookCollection.addBookToListSell(b1);
-		bookCollection.addBookToListSell(b2);
-		bookCollection.addBookToListSell(b3);
-		bookCollection.addBookToListSell(b4);
 
 		// pagerAdapterSell.refreshAdapter(ALL);
 
@@ -723,6 +730,25 @@ public class MainActivity extends BaseActivity {
 
 	private int getColor(int resID) {
 		return Color.parseColor(getString(resID));
+	}
+
+	public void setBookAsSold(BookData book) {
+		if (book.sellingState == CURRENT) {
+			book.sellingState = SOLD;
+			pagerAdapterSell.refreshAdapter(0);
+		}
+	}
+
+	public void setBookAsSelling(BookData book) {
+		if (book.sellingState == CURRENT) {
+			book.sellingState = SELLING;
+			pagerAdapterSell.refreshAdapter(0);
+		}
+	}
+
+	public void removeBookFromSell(BookData book) {
+		bookCollection.removeBookFromListSell(book);
+		pagerAdapterSell.refreshAdapter(0);
 	}
 
 }

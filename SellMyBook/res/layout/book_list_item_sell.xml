@@ -23,110 +23,146 @@
 
             <ImageView
                 android:id="@+id/book_list_item_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentTop="true"
                 android:adjustViewBounds="true"
-                android:background="@android:color/background_dark"
                 android:contentDescription="Icona libro"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@drawable/book_exampleold" />
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/book_list_item_corner_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignBottom="@+id/book_list_item_icon"
+                android:layout_alignRight="@+id/book_list_item_icon"
+                android:adjustViewBounds="true"
+                android:contentDescription="Icona libro"
+                android:scaleType="fitXY"
+                android:src="@drawable/corner_icon" />
+
+            <ImageView
+                android:id="@+id/book_list_item_corner_sold"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="Icona libro"
+                android:scaleType="fitStart"
+                android:src="@drawable/corner_banner_red"
+                 />
+
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@+id/actions"
                 android:layout_toRightOf="@+id/book_list_item_icon"
-                android:orientation="vertical" >
+                android:background="@drawable/book_list_item_layout_sell"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp" >
 
-                <TextView
-                    android:id="@+id/book_list_item_title"
+                <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="Fondamenti di fisica"
-                    android:textColor="@color/side_navigation_background"
-                    android:textSize="14sp" />
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/buttonSetAsSold"
+                    android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/book_list_item_author"
+                    <TextView
+                        android:id="@+id/book_list_item_title"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="Fondamenti di fisica"
+                        android:textColor="@color/side_navigation_background"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/book_list_item_author"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@+id/book_list_item_title"
+                        android:layout_below="@+id/book_list_item_title"
+                        android:layout_toRightOf="@+id/book_list_item_icon"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="(2010) - James S. Walker"
+                        android:textColor="@color/side_navigation_outside_background"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/book_list_item_publisher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:text="(2010) - Mc Graw-Hill"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/book_list_item_year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/book_list_item_desc"
+                        android:layout_below="@+id/book_list_item_desc"
+                        android:layout_marginTop="3dp"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:text="(edizione 2010)"
+                        android:textSize="10sp"
+                        android:textStyle="italic"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/book_list_item_ISBN"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:maxLines="3"
+                        android:text="ISBN: 9788871925851"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/book_list_item_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:maxLines="3"
+                        android:paddingRight="5dp"
+                        android:text="IN VENDITA A €4.99"
+                        android:textColor="@android:color/holo_green_dark"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/buttonSetAsSold"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignRight="@+id/book_list_item_title"
-                    android:layout_below="@+id/book_list_item_title"
-                    android:layout_toRightOf="@+id/book_list_item_icon"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="(2010) - James S. Walker"
-                    android:textColor="@color/side_navigation_outside_background"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="7dp"
+                    android:background="@layout/button_blue_thin"
+                    android:padding="5dp"
+                    android:text="Segna come\nvenduto"
+                    android:textColor="@android:color/white"
                     android:textSize="11sp" />
 
-                <TextView
-                    android:id="@+id/book_list_item_publisher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="3"
-                    android:text="(2010) - Mc Graw-Hill"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/book_list_item_year"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/book_list_item_desc"
-                    android:layout_below="@+id/book_list_item_desc"
-                    android:layout_marginTop="3dp"
-                    android:ellipsize="end"
-                    android:gravity="right"
-                    android:text="(edizione 2010)"
-                    android:textSize="10sp"
-                    android:textStyle="italic"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/book_list_item_ISBN"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:gravity="right"
-                    android:maxLines="3"
-                    android:text="ISBN: 9788871925851"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/book_list_item_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:gravity="right"
-                    android:maxLines="3"
-                    android:paddingRight="5dp"
-                    android:text="IN VENDITA A €4.99"
-                    android:textColor="@android:color/holo_green_dark"
-                    android:textSize="10sp" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/buttonSetAsSold"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="7dp"
-                android:background="@layout/button_blue_thin"
-                android:padding="5dp"
-                android:text="Segna come\nvenduto"
-                android:textColor="@android:color/white"
-                android:textSize="11sp" />
+                <Spinner
+                    android:id="@+id/spinnerOverflow"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="2dp"
+                    android:layout_below="@+id/book_list_item_mainField"
+                    android:background="@drawable/ic_action_overflow" />
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/buttonSold"
@@ -138,130 +174,16 @@
                 android:background="@drawable/sold"
                 android:padding="5dp"
                 android:textColor="@android:color/white"
-                android:textSize="11sp" />
-
-            <Spinner
-                android:id="@+id/spinnerOverflow"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_below="@+id/book_list_item_mainField"
-                android:background="@drawable/ic_action_overflow" />
-
-            <RelativeLayout
-                android:id="@+id/actions"
-                android:layout_width="70dp"
-                android:layout_height="fill_parent"
-                android:layout_alignParentRight="true"
-                android:orientation="vertical"
-                android:visibility="gone" >
-
-                <LinearLayout
-                    android:id="@+id/buttons"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_alignParentRight="true"
-                    android:gravity="right"
-                    android:orientation="vertical"
-                    android:visibility="gone" >
-
-                    <Button
-                        android:id="@+id/buttonGreen"
-                        android:layout_width="wrap_content"
-                        android:layout_height="25dp"
-                        android:background="@layout/button_green_action"
-                        android:padding="5dp"
-                        android:text="Venduto"
-                        android:textColor="@android:color/white"
-                        android:textSize="11sp" />
-
-                    <Button
-                        android:id="@+id/buttonRed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="25dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/buttonGreen"
-                        android:layout_marginTop="2dp"
-                        android:background="@android:color/holo_red_dark"
-                        android:padding="5dp"
-                        android:text="Rimuovi"
-                        android:textColor="@android:color/white"
-                        android:textSize="11sp" />
-
-                    <Button
-                        android:id="@+id/buttonBlue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="25dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/buttonRed"
-                        android:layout_marginTop="2dp"
-                        android:background="@android:color/holo_blue_dark"
-                        android:padding="5dp"
-                        android:text="Utente"
-                        android:textColor="@android:color/white"
-                        android:textSize="11sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/request"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:layout_alignParentRight="true"
-                    android:orientation="vertical"
-                    android:visibility="gone" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Una richiesta d&apos;acquisto!"
-                        android:textColor="@android:color/holo_blue_dark"
-                        android:textSize="11sp"
-                        android:textStyle="bold" />
-
-                    <Button
-                        android:id="@+id/buttonAccept"
-                        android:layout_width="fill_parent"
-                        android:layout_height="25dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentTop="true"
-                        android:background="@android:color/holo_green_dark"
-                        android:padding="5dp"
-                        android:text="Accetta"
-                        android:textColor="@android:color/white"
-                        android:textSize="11sp" />
-
-                    <Button
-                        android:id="@+id/buttonDeny"
-                        android:layout_width="fill_parent"
-                        android:layout_height="25dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginTop="2dp"
-                        android:background="@android:color/holo_red_dark"
-                        android:padding="5dp"
-                        android:text="Rifiuta"
-                        android:textColor="@android:color/white"
-                        android:textSize="11sp" />
-                </LinearLayout>
-            </RelativeLayout>
+                android:textSize="11sp"
+                android:visibility="gone" />
         </RelativeLayout>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/book_list_item_shadow"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@+id/book_list_item_mainField"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp" >
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/book_list_item_BottomMargin"
         android:layout_width="fill_parent"
         android:layout_height="3.5dp"
-        android:layout_below="@+id/book_list_item_shadow"
+        android:layout_below="@+id/book_list_item_mainField"
         android:background="@color/background_gray"
         android:visibility="gone" >
     </RelativeLayout>
@@ -277,12 +199,12 @@
     <TextView
         android:id="@+id/book_list_item_TopTitleAll"
         android:layout_width="fill_parent"
-        android:gravity="center_vertical"
-        android:layout_below="@+id/book_list_item_TopMargin"
         android:layout_height="30dp"
+        android:layout_below="@+id/book_list_item_TopMargin"
+        android:gravity="center_vertical"
         android:paddingLeft="5dp"
-        android:textStyle="italic"
+        android:text="Libri in vendita"
         android:textColor="@color/side_navigation_outside_background"
-        android:text="Libri in vendita" />
+        android:textStyle="italic" />
 
 </RelativeLayout>

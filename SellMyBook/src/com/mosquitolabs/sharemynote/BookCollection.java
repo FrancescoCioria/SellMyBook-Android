@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class BookCollection {
 
 	private static final int ALL = 0;
-	private static final int SELLING = 1;
-	private static final int CURRENT_SELL = 2;
+	private static final int SELLING = 2;
+	private static final int CURRENT_SELL =1;
 	private static final int CURRENT_BUY = 1;
 	private static final int BOUGHT = 2;
 	private static final int SOLD = 3;
@@ -126,6 +126,16 @@ public class BookCollection {
 			counter++;
 		}
 		list.remove(counter);
+	}
+	public void removeBookFromListSell(BookData book) {
+		int counter = 0;
+		for (BookData temp : sellAll) {
+			if (temp.ID.equals(book.ID)) {
+				break;
+			}
+			counter++;
+		}
+		sellAll.remove(counter);
 	}
 
 	public void initializeSellSelling() {

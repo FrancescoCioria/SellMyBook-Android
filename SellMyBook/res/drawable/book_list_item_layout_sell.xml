@@ -23,7 +23,7 @@
             <corners android:radius="3dp" />
         </shape></item>
     <item android:state_enabled="true"><shape>
-            <padding android:bottom="4dp" android:left="7dp" android:top="4dp" />
+            <padding android:bottom="0dp" />
         </shape></item>
 
 </selector>

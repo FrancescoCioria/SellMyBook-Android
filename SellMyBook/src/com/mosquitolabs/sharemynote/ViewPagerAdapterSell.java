@@ -11,8 +11,8 @@ import android.widget.ListView;
 public class ViewPagerAdapterSell extends PagerAdapter {
 
 	private static final int ALL = 0;
-	private static final int SELLING = 1;
-	private static final int CURRENT = 2;
+	private static final int SELLING = 2;
+	private static final int CURRENT = 1;
 	private static final int SOLD = 3;
 
 	private ListView listAll;
@@ -32,7 +32,11 @@ public class ViewPagerAdapterSell extends PagerAdapter {
 
 	public ViewPagerAdapterSell(MainActivity context) {
 		this.context = context;
-		
+		adapterSellAll = new MyCustomAdapterSell(context, ALL);
+		adapterSellSelling = new MyCustomAdapterSell(context, SELLING);
+		adapterSellCurrent = new MyCustomAdapterSell(context, CURRENT);
+		adapterSellSold = new MyCustomAdapterSell(context, SOLD);
+
 	}
 
 	@Override
@@ -52,27 +56,24 @@ public class ViewPagerAdapterSell extends PagerAdapter {
 		case ALL:
 			v = inflater.inflate(R.layout.sell_all, null);
 			listAll = (ListView) v.findViewById(R.id.listView);
-			adapterSellAll = new MyCustomAdapterSell(context, ALL);
+
 			listAll.setAdapter(adapterSellAll);
 			break;
 
 		case SELLING:
 			v = inflater.inflate(R.layout.sell_selling, null);
 			listSelling = (ListView) v.findViewById(R.id.listView);
-			adapterSellSelling = new MyCustomAdapterSell(context, SELLING);
 			listSelling.setAdapter(adapterSellSelling);
 
 			break;
 		case CURRENT:
 			v = inflater.inflate(R.layout.sell_current, null);
 			listCurrent = (ListView) v.findViewById(R.id.listView);
-			adapterSellCurrent = new MyCustomAdapterSell(context, CURRENT);
 			listCurrent.setAdapter(adapterSellCurrent);
 			break;
 		case SOLD:
 			v = inflater.inflate(R.layout.sell_sold, null);
 			listSold = (ListView) v.findViewById(R.id.listView);
-			adapterSellSold = new MyCustomAdapterSell(context, SOLD);
 			listSold.setAdapter(adapterSellSold);
 
 			break;
@@ -102,19 +103,15 @@ public class ViewPagerAdapterSell extends PagerAdapter {
 
 		case ALL:
 			adapterSellAll.notifyDataSetChanged();
-			break;
 
 		case SELLING:
 			adapterSellSelling.notifyDataSetChanged();
 
-			break;
 		case CURRENT:
 			adapterSellCurrent.notifyDataSetChanged();
-			break;
+
 		case SOLD:
 			adapterSellSold.notifyDataSetChanged();
-
-			break;
 
 		}
 	}
