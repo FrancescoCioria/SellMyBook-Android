@@ -10,8 +10,8 @@
 
     <RelativeLayout
         android:id="@+id/book_list_item_mainField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
         android:layout_below="@+id/book_list_item_TopTitleAll"
         android:background="@layout/book_item_layout"
         android:paddingBottom="1dp" >
@@ -50,20 +50,19 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="Icona libro"
                 android:scaleType="fitStart"
-                android:src="@drawable/corner_banner_red"
-                 />
+                android:src="@drawable/corner_banner_red" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_toRightOf="@+id/book_list_item_icon"
                 android:background="@drawable/book_list_item_layout_sell"
-                android:paddingBottom="5dp"
                 android:paddingLeft="5dp" >
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
+                    android:layout_above="@+id/book_list_item_price"
                     android:layout_alignParentTop="true"
                     android:layout_toLeftOf="@+id/buttonSetAsSold"
                     android:orientation="vertical" >
@@ -118,27 +117,43 @@
 
                     <TextView
                         android:id="@+id/book_list_item_ISBN"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:gravity="right"
                         android:maxLines="3"
                         android:text="ISBN: 9788871925851"
-                        android:textColor="@android:color/darker_gray"
+                        android:textColor="@color/side_navigation_outside_background"
                         android:textSize="10sp" />
 
                     <TextView
-                        android:id="@+id/book_list_item_price"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/book_list_item_date"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:gravity="right"
                         android:maxLines="3"
-                        android:paddingRight="5dp"
-                        android:text="IN VENDITA A €4.99"
-                        android:textColor="@android:color/holo_green_dark"
+                        android:text="In vendita dal 23/04/2012"
+                        android:textColor="@color/side_navigation_outside_background"
                         android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/book_list_item_dummy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/book_list_item_price"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="2dp"
+                    android:layout_toRightOf="@+id/book_list_item_icon"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:paddingRight="5dp"
+                    android:text="IN VENDITA A €4.99"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:textSize="10sp" />
 
                 <Button
                     android:id="@+id/buttonSetAsSold"
@@ -146,6 +161,7 @@
                     android:layout_height="40dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginRight="7dp"
                     android:background="@layout/button_blue_thin"
                     android:padding="5dp"
@@ -153,14 +169,14 @@
                     android:textColor="@android:color/white"
                     android:textSize="11sp" />
 
-                <Spinner
+                <Button
                     android:id="@+id/spinnerOverflow"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginTop="2dp"
                     android:layout_below="@+id/book_list_item_mainField"
+                    android:layout_marginTop="2dp"
                     android:background="@drawable/ic_action_overflow" />
             </RelativeLayout>
 

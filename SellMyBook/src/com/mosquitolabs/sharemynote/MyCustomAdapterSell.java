@@ -1,5 +1,7 @@
 package com.mosquitolabs.sharemynote;
 
+import java.util.Calendar;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -10,18 +12,20 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,44 +41,29 @@ public class MyCustomAdapterSell extends BaseAdapter {
 
 	private static final int EDIT = 0;
 	private static final int USER = 0;
-	private static final int FAILED = 1;
+	private static final int FAILED = 2;
 	private static final int REMOVE = 1;
+	private static final int SET_AS_SOLD = 1;
 	private static final int SELL_ANOTHER = 1;
 
-	private ArrayAdapter<String> dataAdapterCurrent;
-	private ArrayAdapter<String> dataAdapterSelling;
-	private ArrayAdapter<String> dataAdapterSold;
+
 
 	private int size;
 	private MainActivity context;
 
-	private boolean firstCurrent = true;
-	private boolean firstSelling = true;
-	private boolean firstSold = true;
+	
 
-	private static String[] SPINNER_CURRENT = { "Profilo compratore",
-			"Transazione fallita" };
-	private static String[] SPINNER_SELLING = { "Modifica", "Rimuovi" };
-	private static String[] SPINNER_SOLD = { "Profilo compratore",
+	private static String[] MENU_CURRENT = { "Profilo compratore",
+			"Segna come venduto", "Transazione fallita" };
+	private static String[] MENU_SELLING = { "Modifica", "Rimuovi" };
+	private static String[] MENU_SOLD = { "Profilo compratore",
 			"Vendine un altro" };
 
 	public MyCustomAdapterSell(MainActivity paramContext, int currentList) {
 		this.mInflater = LayoutInflater.from(paramContext);
 		this.currentList = currentList;
 		context = paramContext;
-		dataAdapterSelling = new ArrayAdapter<String>(context,
-				android.R.layout.simple_spinner_item, SPINNER_SELLING);
-		dataAdapterCurrent = new ArrayAdapter<String>(context,
-				android.R.layout.simple_spinner_item, SPINNER_CURRENT);
-		dataAdapterSold = new ArrayAdapter<String>(context,
-				android.R.layout.simple_spinner_item, SPINNER_SOLD);
-		dataAdapterSelling
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		dataAdapterCurrent
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		dataAdapterSold
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
+		Log.i("MyCustomAdapterSell", "created: "+context.getCounter2());
 	}
 
 	public int getCount() {
@@ -84,13 +73,7 @@ public class MyCustomAdapterSell extends BaseAdapter {
 			size = bookCollection.getSellAll().size();
 			break;
 
-		/*
-		 * case CURRENT: size = bookCollection.getSellCurrent().size(); break;
-		 * 
-		 * case SELLING: size = bookCollection.getSellSelling().size(); break;
-		 * 
-		 * case SOLD: size = bookCollection.getSellSold().size(); break;
-		 */
+		
 
 		default:
 			size = bookCollection.getSellSizeForSellingState(currentList);
@@ -111,7 +94,6 @@ public class MyCustomAdapterSell extends BaseAdapter {
 
 	public View getView(final int paramInt, View paramView,
 			ViewGroup paramViewGroup) {
-
 		ViewHolder localViewHolder;
 
 		if (paramView == null) {
@@ -125,6 +107,8 @@ public class MyCustomAdapterSell extends BaseAdapter {
 					.findViewById(R.id.book_list_item_TopMargin);
 			localViewHolder.topTitleAll = (TextView) paramView
 					.findViewById(R.id.book_list_item_TopTitleAll);
+			localViewHolder.date = (TextView) paramView
+					.findViewById(R.id.book_list_item_date);
 			localViewHolder.bottomMargin = (RelativeLayout) paramView
 					.findViewById(R.id.book_list_item_BottomMargin);
 
@@ -133,8 +117,10 @@ public class MyCustomAdapterSell extends BaseAdapter {
 			localViewHolder.buttonSetAsSold = (Button) paramView
 					.findViewById(R.id.buttonSetAsSold);
 
-			localViewHolder.overflow = (Spinner) paramView
+			localViewHolder.overflow = (Button) paramView
 					.findViewById(R.id.spinnerOverflow);
+
+			
 
 			paramView.setTag(localViewHolder);
 
@@ -142,7 +128,10 @@ public class MyCustomAdapterSell extends BaseAdapter {
 
 		localViewHolder = (ViewHolder) paramView.getTag();
 
+		final ViewHolder holder = localViewHolder;
+		
 		BookData temp = new BookData();
+		
 		switch (currentList) {
 		case ALL:
 
@@ -164,22 +153,16 @@ public class MyCustomAdapterSell extends BaseAdapter {
 												.getSellSizeForSellingState(SELLING)));
 			}
 			break;
-		/*
-		 * case CURRENT: temp = bookCollection.getSellCurrent().get(paramInt);
-		 * break;
-		 * 
-		 * case SELLING: temp = bookCollection.getSellSelling().get(paramInt);
-		 * break;
-		 * 
-		 * case SOLD: temp = bookCollection.getSellSold().get(paramInt); break;
-		 */
-
+	
 		default:
 			temp = bookCollection.getNextBookForSellingState(currentList,
 					paramInt);
 			break;
 
 		}
+		long end = Calendar.getInstance().getTimeInMillis();
+
+		//Log.i("AdapterSell", "ricerca libro: "+Long.toString(end-start)+" millis");
 
 		final BookData book = temp;
 
@@ -192,21 +175,20 @@ public class MyCustomAdapterSell extends BaseAdapter {
 			b = getRoundedCornerBitmap(BitmapFactory.decodeResource(
 					context.getResources(), R.drawable.book_exampleold2), 13);
 		}
-		localViewHolder.icon.setImageBitmap(b);
+		holder.icon.setImageBitmap(b);
 
-		localViewHolder.sold.setVisibility(View.GONE);
-		localViewHolder.buttonSetAsSold.setVisibility(View.GONE);
-		localViewHolder.topTitleAll.setVisibility(View.GONE);
+		holder.sold.setVisibility(View.GONE);
+		holder.buttonSetAsSold.setVisibility(View.GONE);
+		holder.topTitleAll.setVisibility(View.GONE);
 
-		localViewHolder.buttonSetAsSold
-				.setOnClickListener(new OnClickListener() {
+		holder.buttonSetAsSold.setOnClickListener(new OnClickListener() {
 
-					@Override
-					public void onClick(View v) {
-						context.setBookAsSold(book);
-					}
+			@Override
+			public void onClick(View v) {
+				context.setBookAsSold(book);
+			}
 
-				});
+		});
 
 		if (currentList == ALL) {
 			if ((paramInt == 0)
@@ -216,7 +198,7 @@ public class MyCustomAdapterSell extends BaseAdapter {
 							.getSellSizeForSellingState(CURRENT) + bookCollection
 							.getSellSizeForSellingState(SELLING)))) {
 
-				localViewHolder.topTitleAll.setVisibility(View.VISIBLE);
+				holder.topTitleAll.setVisibility(View.VISIBLE);
 
 			}
 		}
@@ -225,117 +207,80 @@ public class MyCustomAdapterSell extends BaseAdapter {
 
 		case SELLING:
 
-			localViewHolder.overflow.setAdapter(dataAdapterSelling);
-			localViewHolder.overflow
-					.setOnItemSelectedListener(new OnItemSelectedListener() {
+			holder.overflow.setOnClickListener(new Button.OnClickListener() {
 
-						public void onItemSelected(AdapterView<?> arg0, View v,
-								int position, long id) {
-							switch (position) {
-							case EDIT:
+				@Override
+				public void onClick(View arg0) {
+					popupMenu(arg0, book, MENU_SELLING);
+				}
+			});
 
-								break;
+			holder.topTitleAll.setText("Libri in vendita");
 
-							case REMOVE:
-								context.removeBookFromSell(book);
-								break;
-							}
-						}
-
-						public void onNothingSelected(AdapterView<?> arg0) {
-
-						}
-
-					});
-
-			localViewHolder.topTitleAll.setText("Libri in vendita");
+			holder.date.setText("In vendita dal 23/04/2013");
 
 			break;
 
 		case CURRENT:
 
-			localViewHolder.overflow.setAdapter(dataAdapterCurrent);
-			localViewHolder.overflow
-					.setOnItemSelectedListener(new OnItemSelectedListener() {
+			holder.overflow.setOnClickListener(new Button.OnClickListener() {
 
-						public void onItemSelected(AdapterView<?> arg0, View v,
-								int position, long id) {
-							switch (position) {
-							case USER:
+				@Override
+				public void onClick(View arg0) {
+					popupMenu(arg0, book, MENU_CURRENT);
+				}
+			});
 
-								break;
-
-							case FAILED:
-								context.setBookAsSelling(book);
-								break;
-							}
-						}
-
-						public void onNothingSelected(AdapterView<?> arg0) {
-
-						}
-
-					});
-
-			localViewHolder.buttonSetAsSold.setVisibility(View.VISIBLE);
+			// localViewHolder.buttonSetAsSold.setVisibility(View.VISIBLE);
 			localViewHolder.topTitleAll.setText("Transazioni in corso");
+
+			localViewHolder.date.setText("Transazione iniziata il 25/04/2013");
 
 			break;
 		case SOLD:
 
-			localViewHolder.overflow.setAdapter(dataAdapterSold);
-			localViewHolder.overflow
-					.setOnItemSelectedListener(new OnItemSelectedListener() {
+			holder.overflow.setOnClickListener(new Button.OnClickListener() {
 
-						public void onItemSelected(AdapterView<?> arg0, View v,
-								int position, long id) {
-							switch (position) {
-							case USER:
+				@Override
+				public void onClick(View arg0) {
+					popupMenu(arg0, book, MENU_SOLD);
+				}
+			});
 
-								break;
+			holder.sold.setVisibility(View.VISIBLE);
+			holder.topTitleAll.setText("Libri venduti");
 
-							case SELL_ANOTHER:
-
-								break;
-							}
-						}
-
-						public void onNothingSelected(AdapterView<?> arg0) {
-
-						}
-
-					});
-
-			localViewHolder.sold.setVisibility(View.VISIBLE);
-			localViewHolder.topTitleAll.setText("Libri venduti");
+			holder.date.setText("Venduto il 18/04/2013");
 
 			break;
 		}
 		if (paramInt == 0) {
-			localViewHolder.topMargin.setVisibility(View.VISIBLE);
+			holder.topMargin.setVisibility(View.VISIBLE);
 		} else {
-			localViewHolder.topMargin.setVisibility(View.GONE);
+			holder.topMargin.setVisibility(View.GONE);
 		}
 
 		if (paramInt == size - 1) {
-			localViewHolder.bottomMargin.setVisibility(View.VISIBLE);
+			holder.bottomMargin.setVisibility(View.VISIBLE);
 		} else {
-			localViewHolder.bottomMargin.setVisibility(View.GONE);
+			holder.bottomMargin.setVisibility(View.GONE);
 		}
 
+		
 		return paramView;
 
 	}
 
 	static class ViewHolder {
 		ImageView icon;
+		ImageView sold;
 		TextView topTitleAll;
 		TextView title;
 		TextView author;
+		TextView date;
 		RelativeLayout topMargin;
 		RelativeLayout bottomMargin;
-		Spinner overflow;
-		ImageView sold;
+		Button overflow;
 		Button buttonSetAsSold;
 
 	}
@@ -367,6 +312,97 @@ public class MyCustomAdapterSell extends BaseAdapter {
 		canvas.drawBitmap(bitmap, rect, rect, paint);
 
 		return output;
+	}
+
+	public void popupMenu(View anchor, final BookData book, String[] items) {
+
+		LayoutInflater layoutInflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View popupView = layoutInflater.inflate(R.layout.popup, null);
+		final PopupWindow popupWindow = new PopupWindow(popupView);
+
+		final int NUM_OF_VISIBLE_LIST_ROWS = items.length;
+		ListView list = (ListView) popupView.findViewById(R.id.listView);
+		list.setAdapter(new MyCustomAdapter(context, items));
+		list.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+		popupWindow.setWidth(list.getMeasuredWidth()+list.getMeasuredWidth()/5);
+		popupWindow.setHeight((list.getMeasuredHeight()+2)
+				* NUM_OF_VISIBLE_LIST_ROWS);
+
+		list.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+				switch (book.sellingState) {
+
+				case CURRENT:
+					switch (position) {
+					case USER:
+						t(position);
+
+						break;
+
+					case SET_AS_SOLD:
+						context.setBookAsSold(book);
+						t(position);
+						break;
+
+					case FAILED:
+						context.setBookAsSelling(book);
+						t(position);
+						break;
+
+					}
+					break;
+
+				case SELLING:
+					switch (position) {
+					case EDIT:
+						t(position);
+						break;
+
+					case REMOVE:
+						context.removeBookFromSell(book);
+						t(position);
+						break;
+					}
+					break;
+
+				case SOLD:
+					switch (position) {
+					case USER:
+						t(position);
+						break;
+
+					case SELL_ANOTHER:
+						t(position);
+						break;
+					}
+					break;
+
+				default:
+					size = bookCollection
+							.getSellSizeForSellingState(currentList);
+					break;
+
+				}
+
+				popupWindow.dismiss();
+
+			}
+		});
+
+		Drawable background = context.getResources().getDrawable(
+				android.R.color.transparent);
+
+		popupWindow.setBackgroundDrawable(background);
+
+		popupWindow.setOutsideTouchable(true);
+		popupWindow.setTouchable(true);
+		popupWindow.setFocusable(true);
+
+		popupWindow.showAsDropDown(anchor);
+
 	}
 
 }

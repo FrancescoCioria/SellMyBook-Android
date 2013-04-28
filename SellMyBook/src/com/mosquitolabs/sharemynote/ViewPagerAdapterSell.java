@@ -4,8 +4,10 @@ import android.content.Context;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 public class ViewPagerAdapterSell extends PagerAdapter {
@@ -20,6 +22,8 @@ public class ViewPagerAdapterSell extends PagerAdapter {
 	private ListView listCurrent;
 	private ListView listSold;
 
+	private int counter = 0;
+
 	private BookCollection bookCollection = BookCollection.getInstance();
 
 	private MyCustomAdapterSell adapterSellAll;
@@ -29,6 +33,11 @@ public class ViewPagerAdapterSell extends PagerAdapter {
 
 	private final MainActivity context;
 	private View v;
+	private View vAll = null;
+	private View vSelling = null;
+	private View vCurrent = null;
+	private View vSold = null;
+	
 
 	public ViewPagerAdapterSell(MainActivity context) {
 		this.context = context;
@@ -48,30 +57,40 @@ public class ViewPagerAdapterSell extends PagerAdapter {
 	public Object instantiateItem(View pager, int position) {
 		LayoutInflater inflater = (LayoutInflater) pager.getContext()
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		Log.i("ViewPagerAdapter", "position: " + Integer.toString(position)
+				+ ", time: " + context.getCounter());
 
 		v = null;
 
 		switch (position) {
 
 		case ALL:
+			counter=0;
 			v = inflater.inflate(R.layout.sell_all, null);
 			listAll = (ListView) v.findViewById(R.id.listView);
-
 			listAll.setAdapter(adapterSellAll);
+			
+
 			break;
 
 		case SELLING:
+			counter=0;
+
 			v = inflater.inflate(R.layout.sell_selling, null);
 			listSelling = (ListView) v.findViewById(R.id.listView);
 			listSelling.setAdapter(adapterSellSelling);
 
 			break;
 		case CURRENT:
+			counter=0;
+
 			v = inflater.inflate(R.layout.sell_current, null);
 			listCurrent = (ListView) v.findViewById(R.id.listView);
 			listCurrent.setAdapter(adapterSellCurrent);
 			break;
 		case SOLD:
+			counter=0;
+
 			v = inflater.inflate(R.layout.sell_sold, null);
 			listSold = (ListView) v.findViewById(R.id.listView);
 			listSold.setAdapter(adapterSellSold);
@@ -85,17 +104,15 @@ public class ViewPagerAdapterSell extends PagerAdapter {
 
 	@Override
 	public void destroyItem(View pager, int position, Object view) {
+		Log.i("ViewPagerAdapter", "destroyItem");
+
 		((ViewPager) pager).removeView((View) view);
+
 	}
 
 	@Override
 	public boolean isViewFromObject(View view, Object object) {
 		return view.equals(object);
-	}
-
-	@Override
-	public Parcelable saveState() {
-		return null;
 	}
 
 	public void refreshAdapter(int adapter) {
@@ -116,4 +133,12 @@ public class ViewPagerAdapterSell extends PagerAdapter {
 		}
 	}
 
+	public int getCounter(){
+		return counter;
+	}
+	public void increaseCounter(){
+		counter++;
+	}
+	
+	
 }

@@ -15,6 +15,8 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -30,11 +32,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.R.anim;
-import android.R.color;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -42,7 +43,6 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -57,7 +57,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.Session;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.model.GraphUser;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.parse.LogInCallback;
@@ -73,9 +75,12 @@ public class MainActivity extends BaseActivity {
 
 	private int logState = 0;
 	private int bookPicture = 0;
-
+	private int counter = 0;
+	private int counter2 = 0;
 	private int currentLoginTab = 0;
 
+	
+	
 	private final static int LOGGED_OUT = 0;
 	private final static int LOGGED_IN = 1;
 
@@ -110,9 +115,7 @@ public class MainActivity extends BaseActivity {
 	private RelativeLayout welcome;
 
 	private SharedPreferences mPrefs;
-	private Session session;
-	// private Session.StatusCallback statusCallback = new
-	// SessionStatusCallback();
+
 	private static final List<String> READ_PERMISSIONS = Arrays.asList(
 			"user_likes", "user_events", "user_birthday");
 
@@ -149,9 +152,9 @@ public class MainActivity extends BaseActivity {
 
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-		session = Session.getActiveSession();
+		// session = Session.getActiveSession();
 
-		if (false && ParseFacebookUtils.getSession() == null) {
+		if (ParseFacebookUtils.getSession() == null) {
 			initializeLogin();
 		} else {
 			initialize();
@@ -280,9 +283,11 @@ public class MainActivity extends BaseActivity {
 		bookCollection.initializeSellCurrent();
 		bookCollection.initializeSellSold();
 		bookCollection.initializeSellSelling();
+		pagerAdapterSell = new ViewPagerAdapterSell(this);
 
 		// go to second tab
 		initializeSell();
+
 	}
 
 	public void initializeBuy() {
@@ -336,9 +341,15 @@ public class MainActivity extends BaseActivity {
 	}
 
 	public void initializeSell() {
-		slidingMenu.setActivated(true);
-		setContentView(R.layout.sell);
 
+		slidingMenu.setActivated(true);
+		if (mPrefs.getBoolean("firstTime", true)) {
+			if (slidingMenu.isShown()) {
+				slidingMenu.toggle(false);
+			}
+		}
+		setContentView(R.layout.sell);
+		
 		if (indicatorBuy != null) {
 			indicatorBuy.invalidate();
 		}
@@ -346,29 +357,23 @@ public class MainActivity extends BaseActivity {
 		TextView desc = (TextView) findViewById(R.id.descriptionPage);
 		int textcolor = getColor(R.color.side_navigation_outside_background);
 		desc.setTextColor(textcolor);
-
-		indicatorSell = (TitlePageIndicator) findViewById(R.id.indicator);
-		indicatorSell.setTitles(TITLES_SELL);
-
-		indicatorSell
-				.setFooterIndicatorStyle(TitlePageIndicator.IndicatorStyle.Triangle);
-		indicatorSell
-				.setFooterColor(getColor(R.color.side_navigation_outside_background));
-
-		indicatorSell.setTextColor(textcolor);
-		indicatorSell.setSelectedColor(textcolor);
-		indicatorSell.setTextSize(17);
-		indicatorSell.setFooterLineHeight(0);
-
 		int background = getColor(R.color.background_gray_darker);
-
 		topBar.setBackgroundColor(background);
-		indicatorSell.setBackgroundColor(background);
 
-		pagerSell = (ViewPager) findViewById(R.id.viewpager);
-		pagerAdapterSell = new ViewPagerAdapterSell(this);
-		pagerSell.setAdapter(pagerAdapterSell);
-		indicatorSell.setViewPager(pagerSell);
+			indicatorSell = (TitlePageIndicator) findViewById(R.id.indicator);
+			indicatorSell.setTitles(TITLES_SELL);
+
+			indicatorSell
+					.setFooterIndicatorStyle(TitlePageIndicator.IndicatorStyle.Triangle);
+			indicatorSell
+					.setFooterColor(getColor(R.color.side_navigation_outside_background));
+
+			indicatorSell.setTextColor(textcolor);
+			indicatorSell.setSelectedColor(textcolor);
+			indicatorSell.setTextSize(17);
+			indicatorSell.setFooterLineHeight(0);
+
+			indicatorSell.setBackgroundColor(background);
 
 		buttonSell = (Button) findViewById(R.id.buttonSell);
 
@@ -383,9 +388,31 @@ public class MainActivity extends BaseActivity {
 			}
 		});
 
-		// pagerAdapterSell.refreshAdapter(ALL);
+		pagerSell = (ViewPager) findViewById(R.id.viewpager);
+		pagerSell.setAdapter(pagerAdapterSell);
+		indicatorSell.setViewPager(pagerSell);
 
-		slidingMenu.toggle();
+		// pagerAdapterSell.refreshAdapter(ALL);
+		if (mPrefs.getBoolean("firstTime", true)) {
+			MainActivity.this.runOnUiThread(new Runnable() {
+				public void run() {
+					final Timer myTimer = new Timer();
+					myTimer.schedule(new TimerTask() {
+						@Override
+						public void run() {
+							Editor editor = mPrefs.edit();
+							editor.putBoolean("firstTime", false);
+							editor.commit();
+							slidingMenu.showMenu();
+						}
+					}, 1000);
+				}
+
+			});
+
+		} else {
+			slidingMenu.toggle();
+		}
 
 	}
 
@@ -698,6 +725,44 @@ public class MainActivity extends BaseActivity {
 				if (user == null) {
 					Log.d("MyApp",
 							"Uh oh. The user cancelled the Facebook login.");
+					/*
+					 * if
+					 * (!ParseFacebookUtils.getSession().getPermissions().contains
+					 * (ParseFacebookUtils.Permissions.User.EMAIL)) {
+					 * List<String> permissions = Arrays
+					 * .asList(ParseFacebookUtils.Permissions.User.EMAIL);
+					 * ParseFacebookUtils
+					 * .getSession().requestNewReadPermissions( new
+					 * NewPermissionsRequest(MainActivity.this, permissions)); }
+					 */
+
+					Request.executeMeRequestAsync(
+							ParseFacebookUtils.getSession(),
+							new Request.GraphUserCallback() {
+
+								@Override
+								public void onCompleted(GraphUser user,
+										Response response) {
+									if (user != null) {
+										// Display the parsed user info
+										try {
+											JSONObject json = response
+													.getGraphObject()
+													.getInnerJSONObject();
+											ParseUser
+													.getCurrentUser()
+													.setUsername(user.getName());
+											ParseUser
+													.getCurrentUser()
+													.setEmail(
+															json.getString("email"));
+											ParseUser.getCurrentUser().save();
+										} catch (Exception e) {
+											// TODO: handle exception
+										}
+									}
+								}
+							});
 					initializeLogin();
 				} else if (user.isNew()) {
 
@@ -713,10 +778,6 @@ public class MainActivity extends BaseActivity {
 				}
 			}
 		});
-	}
-
-	public Session getSession() {
-		return session;
 	}
 
 	public void loginPagerNextPage() {
@@ -751,4 +812,22 @@ public class MainActivity extends BaseActivity {
 		pagerAdapterSell.refreshAdapter(0);
 	}
 
+	
+	public String getCounter(){
+		counter++;
+		return Integer.toString(counter);
+	}
+	public String getCounter2(){
+		counter2++;
+		return Integer.toString(counter2);
+	}
+	
+	public int getViewPagerCounter(){
+		return pagerAdapterSell.getCounter();
+	}
+	public void increaseViewPagerCounter(){
+		pagerAdapterSell.increaseCounter();
+	}
+	
+	
 }
