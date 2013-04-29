@@ -21,7 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class MyCustomAdapter extends BaseAdapter {
+public class MyCustomAdapterInstantComplete extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private Display display;
@@ -30,12 +30,12 @@ public class MyCustomAdapter extends BaseAdapter {
 	private String[] items;
 	private MainActivity parentActivity;
 
-	public MyCustomAdapter(Activity paramContext, String[] items) {
+	public MyCustomAdapterInstantComplete(Activity paramContext, String[] items) {
 		this.mInflater = LayoutInflater.from(paramContext);
 		context = paramContext;
 		this.items = items;
 	}
-	public MyCustomAdapter(Activity paramContext, ArrayList<String> items) {
+	public MyCustomAdapterInstantComplete(Activity paramContext, ArrayList<String> items) {
 		this.mInflater = LayoutInflater.from(paramContext);
 		context = paramContext;
 		

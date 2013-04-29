@@ -2,6 +2,7 @@ package com.mosquitolabs.sharemynote;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,6 +12,9 @@ import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,6 +46,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -62,11 +67,14 @@ import com.facebook.Response;
 import com.facebook.model.GraphUser;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.slidingmenu.lib.SlidingMenu;
 import com.viewpagerindicator.TitlePageIndicator;
@@ -78,9 +86,8 @@ public class MainActivity extends BaseActivity {
 	private int counter = 0;
 	private int counter2 = 0;
 	private int currentLoginTab = 0;
+	private int currentSellTab = 0;
 
-	
-	
 	private final static int LOGGED_OUT = 0;
 	private final static int LOGGED_IN = 1;
 
@@ -136,6 +143,8 @@ public class MainActivity extends BaseActivity {
 
 	private BookCollection bookCollection = BookCollection.getInstance();
 
+	private UserData user = new UserData();
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		this.setTheme(com.actionbarsherlock.R.style.Sherlock___Theme_DarkActionBar);
@@ -154,7 +163,9 @@ public class MainActivity extends BaseActivity {
 
 		// session = Session.getActiveSession();
 
-		if (ParseFacebookUtils.getSession() == null) {
+		// myJson();
+
+		if (true || ParseFacebookUtils.getSession() == null) {
 			initializeLogin();
 		} else {
 			initialize();
@@ -214,6 +225,10 @@ public class MainActivity extends BaseActivity {
 		loginPager = (CustomViewPager) findViewById(R.id.viewpager);
 		loginPager.setAdapter(new LoginPagerAdapter(this));
 		loginPager.setPagingEnabled(false);
+		//
+		loginPager.setCurrentItem(1);
+		//
+
 	}
 
 	public void initialize() {
@@ -235,24 +250,30 @@ public class MainActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
+				if (currentSellTab != position) {
+					currentSellTab = position;
 
-				switch (position) {
-				case BUY:
-					initializeBuy();
-					break;
-				case WANTED:
-					initializeWanted();
-					break;
-				case SELL:
-					initializeSell();
-					break;
+					switch (position) {
+					case BUY:
 
-				case SETTINGS:
-					toast("settings");
-					break;
-				case LICENSE:
-					toast("license");
-					break;
+						initializeBuy();
+						break;
+					case WANTED:
+						initializeWanted();
+						break;
+					case SELL:
+						initializeSell();
+						break;
+
+					case SETTINGS:
+						toast("settings");
+						break;
+					case LICENSE:
+						toast("license");
+						break;
+					}
+				} else {
+					slidingMenu.toggle();
 				}
 
 			}
@@ -285,8 +306,14 @@ public class MainActivity extends BaseActivity {
 		bookCollection.initializeSellSelling();
 		pagerAdapterSell = new ViewPagerAdapterSell(this);
 
+		getUserData();
+
 		// go to second tab
-		initializeSell();
+		int position = SELL;
+		listViewSlidingMenu.performItemClick(listViewSlidingMenu.getAdapter()
+				.getView(position, null, null), position, position);
+
+		// initializeSell();
 
 	}
 
@@ -343,13 +370,9 @@ public class MainActivity extends BaseActivity {
 	public void initializeSell() {
 
 		slidingMenu.setActivated(true);
-		if (mPrefs.getBoolean("firstTime", true)) {
-			if (slidingMenu.isShown()) {
-				slidingMenu.toggle(false);
-			}
-		}
+
 		setContentView(R.layout.sell);
-		
+
 		if (indicatorBuy != null) {
 			indicatorBuy.invalidate();
 		}
@@ -360,20 +383,20 @@ public class MainActivity extends BaseActivity {
 		int background = getColor(R.color.background_gray_darker);
 		topBar.setBackgroundColor(background);
 
-			indicatorSell = (TitlePageIndicator) findViewById(R.id.indicator);
-			indicatorSell.setTitles(TITLES_SELL);
+		indicatorSell = (TitlePageIndicator) findViewById(R.id.indicator);
+		indicatorSell.setTitles(TITLES_SELL);
 
-			indicatorSell
-					.setFooterIndicatorStyle(TitlePageIndicator.IndicatorStyle.Triangle);
-			indicatorSell
-					.setFooterColor(getColor(R.color.side_navigation_outside_background));
+		indicatorSell
+				.setFooterIndicatorStyle(TitlePageIndicator.IndicatorStyle.Triangle);
+		indicatorSell
+				.setFooterColor(getColor(R.color.side_navigation_outside_background));
 
-			indicatorSell.setTextColor(textcolor);
-			indicatorSell.setSelectedColor(textcolor);
-			indicatorSell.setTextSize(17);
-			indicatorSell.setFooterLineHeight(0);
+		indicatorSell.setTextColor(textcolor);
+		indicatorSell.setSelectedColor(textcolor);
+		indicatorSell.setTextSize(17);
+		indicatorSell.setFooterLineHeight(0);
 
-			indicatorSell.setBackgroundColor(background);
+		indicatorSell.setBackgroundColor(background);
 
 		buttonSell = (Button) findViewById(R.id.buttonSell);
 
@@ -383,7 +406,6 @@ public class MainActivity extends BaseActivity {
 			public void onClick(View v) {
 				Intent localIntent = new Intent(MainActivity.this,
 						SearchISBNActivity.class);
-
 				startActivity(localIntent);
 			}
 		});
@@ -394,8 +416,10 @@ public class MainActivity extends BaseActivity {
 
 		// pagerAdapterSell.refreshAdapter(ALL);
 		if (mPrefs.getBoolean("firstTime", true)) {
-			MainActivity.this.runOnUiThread(new Runnable() {
-				public void run() {
+
+			AsyncTask<Void, Void, Boolean> task = new AsyncTask<Void, Void, Boolean>() {
+				@Override
+				public Boolean doInBackground(Void... params) {
 					final Timer myTimer = new Timer();
 					myTimer.schedule(new TimerTask() {
 						@Override
@@ -403,12 +427,19 @@ public class MainActivity extends BaseActivity {
 							Editor editor = mPrefs.edit();
 							editor.putBoolean("firstTime", false);
 							editor.commit();
-							slidingMenu.showMenu();
+							MainActivity.this.runOnUiThread(new Runnable() {
+								public void run() {
+									slidingMenu.showMenu();
+								}
+							});
 						}
-					}, 1000);
+					}, 1500);
+					return true;
 				}
 
-			});
+			};
+
+			task.execute();
 
 		} else {
 			slidingMenu.toggle();
@@ -812,22 +843,92 @@ public class MainActivity extends BaseActivity {
 		pagerAdapterSell.refreshAdapter(0);
 	}
 
-	
-	public String getCounter(){
+	public String getCounter() {
 		counter++;
 		return Integer.toString(counter);
 	}
-	public String getCounter2(){
+
+	public String getCounter2() {
 		counter2++;
 		return Integer.toString(counter2);
 	}
-	
-	public int getViewPagerCounter(){
+
+	public int getViewPagerCounter() {
 		return pagerAdapterSell.getCounter();
 	}
-	public void increaseViewPagerCounter(){
+
+	public void increaseViewPagerCounter() {
 		pagerAdapterSell.increaseCounter();
 	}
-	
-	
+
+	private void myJson() {
+		try {
+
+			File dir = Environment.getExternalStorageDirectory();
+			File yourFile = new File(dir, "freeformatter-out.json");
+			FileInputStream stream = new FileInputStream(yourFile);
+			String jString = null;
+			try {
+				FileChannel fc = stream.getChannel();
+				MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0,
+						fc.size());
+				/* Instead of using default, pass in a decoder. */
+				jString = Charset.defaultCharset().decode(bb).toString();
+			} finally {
+				stream.close();
+			}
+
+			JSONObject jObject = new JSONObject(jString);
+
+			toast("got it!");
+
+		} catch (Exception e) {
+			Log.e(this.getClass().getCanonicalName(), e.toString());
+		}
+	}
+
+	private void getUserData() {
+		try {
+			user.name = ParseUser.getCurrentUser().getUsername();
+			user.email = ParseUser.getCurrentUser().getEmail();
+			user.ID = ParseUser.getCurrentUser().getObjectId();
+			ParseQuery queryCampus = new ParseQuery("Campus");
+			queryCampus.whereEqualTo("objectId", ParseUser.getCurrentUser()
+					.getParseObject("campus").getObjectId());
+			queryCampus.findInBackground(new FindCallback() {
+
+				@Override
+				public void done(List<ParseObject> arg0, ParseException arg1) {
+					ParseObject campus = arg0.get(0);
+					user.campusID = campus.getObjectId();
+					user.campus = campus.getString("name");
+					ParseQuery query = new ParseQuery("University");
+					query.whereEqualTo("objectId",
+							campus.getParseObject("university").getObjectId());
+
+					query.findInBackground(new FindCallback() {
+
+						@Override
+						public void done(List<ParseObject> arg0, ParseException arg1) {
+							ParseObject university = arg0.get(0);
+							user.university = university.getString("name");
+							setName(user.name);
+							setEmail(user.email);
+							setUniversity(user.university);			
+							
+						}
+						
+					});
+
+				}
+			});
+
+			
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
+
 }

@@ -28,6 +28,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentTop="true"
                 android:adjustViewBounds="true"
+                
                 android:contentDescription="Icona libro"
                 android:scaleType="fitXY"
                 android:src="@drawable/book_exampleold" />
@@ -41,7 +42,9 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="Icona libro"
                 android:scaleType="fitXY"
-                android:src="@drawable/corner_icon" />
+                
+                
+                android:src="@drawable/folded_effect" />
 
             <ImageView
                 android:id="@+id/book_list_item_corner_sold"

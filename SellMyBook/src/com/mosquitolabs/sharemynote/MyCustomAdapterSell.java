@@ -20,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -323,7 +324,12 @@ public class MyCustomAdapterSell extends BaseAdapter {
 
 		final int NUM_OF_VISIBLE_LIST_ROWS = items.length;
 		ListView list = (ListView) popupView.findViewById(R.id.listView);
-		list.setAdapter(new MyCustomAdapter(context, items));
+		
+		ArrayAdapter<String> adapter =new ArrayAdapter<String>(context,
+				R.layout.list_item_instant, items);
+		adapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		list.setAdapter(adapter);
 		list.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
 		popupWindow.setWidth(list.getMeasuredWidth()+list.getMeasuredWidth()/5);
 		popupWindow.setHeight((list.getMeasuredHeight()+2)
@@ -396,7 +402,6 @@ public class MyCustomAdapterSell extends BaseAdapter {
 				android.R.color.transparent);
 
 		popupWindow.setBackgroundDrawable(background);
-
 		popupWindow.setOutsideTouchable(true);
 		popupWindow.setTouchable(true);
 		popupWindow.setFocusable(true);

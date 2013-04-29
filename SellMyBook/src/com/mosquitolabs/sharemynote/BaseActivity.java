@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.actionbarsherlock.view.MenuItem;
 import com.slidingmenu.lib.SlidingMenu;
@@ -26,6 +27,10 @@ public class BaseActivity extends SlidingActivity {
 	private ArrayList<SlidingMenuItem> menuItems;
 	private ListView list;
 	private RelativeLayout account;
+	
+	private TextView name;
+	private TextView email;
+	private TextView university;
 
 	private static final String LOG_TAG = SlidingMenuAdapter.class
 			.getSimpleName();
@@ -95,6 +100,11 @@ public class BaseActivity extends SlidingActivity {
 				startActivity(localIntent);
 			}
 		});
+		
+		name = (TextView) slidingMenu.getMenu().findViewById(R.id.name);
+		email = (TextView) slidingMenu.getMenu().findViewById(R.id.email);
+		university = (TextView) slidingMenu.getMenu().findViewById(R.id.university);
+		
 
 	}
 
@@ -167,6 +177,17 @@ public class BaseActivity extends SlidingActivity {
 
 	public ListView getSlidingMenuList() {
 		return list;
+	}
+	
+	
+	public void setName(String s){
+		name.setText(s);
+	}
+	public void setEmail(String s){
+		email.setText(s);
+	}
+	public void setUniversity(String s){
+		university.setText(s);
 	}
 
 }

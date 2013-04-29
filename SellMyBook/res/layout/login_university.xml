@@ -1,54 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/background_gray"
-    android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/login_university_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/spinnerUni"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/spinnerUni"
-        android:layout_marginTop="88dp"
-        android:gravity="center"
-        android:text="@string/login_university"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/holo_blue_dark" />
 
-    <Button
-        android:id="@+id/login_university_buttonContinue"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/spinnerCampus"
-        android:layout_marginRight="35dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/arrow_green"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_gray"
+        android:orientation="vertical" >
 
-    <Spinner
-        android:id="@+id/spinnerUni"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:background="@drawable/edit_text_rounded_corners" />
+        <TextView
+            android:id="@+id/login_university_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/autoCompleteUni"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/autoCompleteUni"
+            android:layout_marginTop="88dp"
+            android:gravity="center"
+            android:text="@string/login_university"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/holo_blue_dark" />
 
-    <Spinner
-        android:id="@+id/spinnerCampus"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/spinnerUni"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/edit_text_rounded_corners" />
+        <Button
+            android:id="@+id/login_university_buttonContinue"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/autoCompleteCampus"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/arrow_green"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" />
 
-</RelativeLayout>
+        <com.mosquitolabs.sharemynote.InstantAutoComplete
+            android:id="@+id/autoCompleteUni"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/edit_text_rounded_corners"
+            android:textIsSelectable="false" />
+
+        <com.mosquitolabs.sharemynote.InstantAutoComplete
+            android:id="@+id/autoCompleteCampus"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/autoCompleteUni"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/edit_text_rounded_corners"
+            android:textIsSelectable="false" />
+    </RelativeLayout>
+
