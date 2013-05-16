@@ -1,58 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_gray"
+    android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/login_university_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/login_university_buttonUni"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/login_university_buttonUni"
+        android:layout_marginTop="88dp"
+        android:gravity="center"
+        android:text="@string/login_university"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/holo_blue_dark" />
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background_gray"
-        android:orientation="vertical" >
+    <Button
+        android:id="@+id/login_university_buttonUni"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/login_university_textView"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
+        android:background="@layout/button_blue"
+        android:hint="Seleziona un&apos;università.."
+        android:text=""
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/login_university_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/autoCompleteUni"
-            android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/autoCompleteUni"
-            android:layout_marginTop="88dp"
-            android:gravity="center"
-            android:text="@string/login_university"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@android:color/holo_blue_dark" />
+    <com.mosquitolabs.sharemynote.InstantAutoComplete
+        android:id="@+id/autoCompleteUni"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/edit_text_rounded_corners"
+        android:textIsSelectable="false"
+        android:visibility="gone" />
 
-        <Button
-            android:id="@+id/login_university_buttonContinue"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/autoCompleteCampus"
-            android:layout_marginRight="35dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/arrow_green"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp" />
+    <com.mosquitolabs.sharemynote.InstantAutoComplete
+        android:id="@+id/autoCompleteCampus"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/autoCompleteUni"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/edit_text_rounded_corners"
+        android:textIsSelectable="false"
+        android:visibility="gone" />
 
-        <com.mosquitolabs.sharemynote.InstantAutoComplete
-            android:id="@+id/autoCompleteUni"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/edit_text_rounded_corners"
-            android:textIsSelectable="false" />
+    <Button
+        android:id="@+id/login_university_buttonContinue"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="54dp"
+        android:layout_marginRight="38dp"
+        android:background="@drawable/arrow_green"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" 
+        android:visibility="gone"
+        />
 
-        <com.mosquitolabs.sharemynote.InstantAutoComplete
-            android:id="@+id/autoCompleteCampus"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_below="@+id/autoCompleteUni"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/edit_text_rounded_corners"
-            android:textIsSelectable="false" />
-    </RelativeLayout>
-
+</RelativeLayout>

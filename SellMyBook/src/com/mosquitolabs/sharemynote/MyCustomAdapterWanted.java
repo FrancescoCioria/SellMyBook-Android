@@ -19,20 +19,20 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class MyCustomAdapterSearch extends BaseAdapter {
+public class MyCustomAdapterWanted extends BaseAdapter {
 	private LayoutInflater mInflater;
 	private BookCollection bookCollection = BookCollection.getInstance();
 
 	Context context;
 
-	public MyCustomAdapterSearch(Context paramContext) {
+	public MyCustomAdapterWanted(Context paramContext) {
 		this.mInflater = LayoutInflater.from(paramContext);
 		context = paramContext;
 	}
 
 	public int getCount() {
 
-		return bookCollection.getSearchResult().size();
+		return bookCollection.getWanted().size();
 
 	}
 
@@ -48,7 +48,7 @@ public class MyCustomAdapterSearch extends BaseAdapter {
 			ViewGroup paramViewGroup) {
 		ViewHolder holder = new ViewHolder();
 
-		final BookData book = bookCollection.getSearchResult().get(paramInt);
+		final BookData book = bookCollection.getWanted().get(paramInt);
 
 		if (paramView == null) {
 			paramView = mInflater.inflate(R.layout.book_list_item_search, null);

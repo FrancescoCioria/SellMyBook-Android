@@ -1,178 +1,282 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/background_gray" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:background="@color/background_gray"
-    
-    
-    >
-<RelativeLayout 
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/background_gray"
-    android:orientation="vertical"
-    android:padding="10dp" >
+        android:orientation="vertical"
+        android:padding="10dp" >
 
-    <ImageView
-        android:id="@+id/profilePicture"
-        android:layout_width="120dp"
-        android:layout_height="180dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/profile_picture" />
-
-    <LinearLayout
-        android:id="@+id/details"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/profilePicture"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Francesco Cioria"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/profilePicture"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            
+            android:src="@drawable/profile_picture" />
 
         <LinearLayout
-            android:id="@+id/email"
+            android:id="@+id/details"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal" >
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/profilePicture"
+            android:adjustViewBounds="true"
+            android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/fixEmail"
-                android:layout_width="40dp"
+                android:id="@+id/name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Francesco Cioria"
+                android:textSize="15sp"
+                android:textStyle="bold" 
+                android:visibility="gone"
+                />
+
+            <LinearLayout
+                android:id="@+id/email"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
-                android:text="e-mail:"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="11sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal" >
 
-            <Button
-                android:id="@+id/buttonEmail"
+                <TextView
+                    android:id="@+id/fixEmail"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:text="e-mail:"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/buttonEmail"
+                    android:layout_width="fill_parent"
+                    android:layout_height="35dp"
+                    android:ellipsize="end"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:text="firefelix@gmail.com"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/phone"
                 android:layout_width="fill_parent"
-                android:layout_height="35dp"
-                android:ellipsize="end"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:text="firefelix@gmail.com"
-                android:textSize="11sp" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal" >
 
-        <LinearLayout
-            android:id="@+id/email"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/fixPhone"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:text="Tel:"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/buttonPhone"
+                    android:layout_width="fill_parent"
+                    android:layout_height="35dp"
+                    android:ellipsize="end"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:text="3921232595"
+                    android:textSize="11sp" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/fixPhone"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:text="Tel:"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="11sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/buttonPhone"
+                android:id="@+id/stat"
                 android:layout_width="fill_parent"
-                android:layout_height="35dp"
-                android:ellipsize="end"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:text="3921232595"
-                android:textSize="11sp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:gravity="center"
+                android:text="Fin&apos;ora grazie a SellmyBook\nhai comprato 3 libri e ne hai venduti 4."
+                android:textSize="11sp"
+                android:textStyle="italic" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/stat"
-            android:layout_width="fill_parent"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:gravity="center"
-            android:text="Fin&apos;ora grazie a SellmyBook\nhai comprato 3 libri e ne hai venduti 4."
-            android:textSize="11sp"
-            android:textStyle="italic" />
-    </LinearLayout>
+            android:layout_below="@+id/profilePicture" >
 
-    <TextView
-        android:id="@+id/fixUni"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/profilePicture"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="15dp"
-        android:text="Università"
-        android:textSize="11sp" />
+            <RelativeLayout
+                android:id="@+id/fixUni"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="20dp" >
 
-    <Spinner
-        android:id="@+id/spinnerUniversity"
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/fixUni"
-        android:background="@drawable/edit_text_rounded_corners" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/fix"
+                    android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/fixCampus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spinnerUniversity"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="10dp"
-        android:text="Campus in cui si tiene la tua facoltà"
-        android:textSize="11sp" />
+                    <TextView
+                        android:id="@+id/textViewLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/line_gray"
+                        android:textSize="8sp" />
 
-    <Spinner
-        android:id="@+id/spinnerCampus"
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/fixCampus"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/edit_text_rounded_corners" />
+                    <TextView
+                        android:id="@+id/textViewLine1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_below="@+id/textViewLine"
+                        android:background="@android:color/background_light"
+                        android:textSize="8sp" />
+                </RelativeLayout>
 
-    <TextView
-        android:id="@+id/fixCity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spinnerCampus"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="10dp"
-        android:text="Città o paese"
-        android:textSize="11sp" />
+                <TextView
+                    android:id="@+id/fix"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profilePicture"
+                    android:layout_centerInParent="true"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Università"
+                    android:textSize="11sp" />
 
-    <Spinner
-        android:id="@+id/spinnerCity"
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/fixCity"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/edit_text_rounded_corners" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/fix"
+                    android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/buttonSave"
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/spinnerCity"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:background="@layout/button_green"
-        android:text="Salva le modifiche"
-        android:textColor="@android:color/background_light"
-        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/textViewLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/line_gray"
+                        android:textSize="8sp" />
 
-</RelativeLayout>
+                    <TextView
+                        android:id="@+id/textViewLine1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_below="@+id/textViewLine"
+                        android:background="@android:color/background_light"
+                        android:textSize="8sp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/buttonUni"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/fixUni"
+                android:background="@layout/button_blue"
+                android:text="Politecnico di Milano - Bovisa"
+                android:textColor="@android:color/background_light"
+                android:textSize="14sp" />
+
+            <RelativeLayout
+                android:id="@+id/fixCity"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/buttonUni"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/fix"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/textViewLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_weight="1"
+                        android:background="@color/line_gray"
+                        android:textSize="8sp" />
+
+                    <TextView
+                        android:id="@+id/textViewLine1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_below="@+id/textViewLine"
+                        android:background="@android:color/background_light"
+                        android:textSize="8sp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/fix"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profilePicture"
+                    android:layout_centerInParent="true"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Città"
+                    android:textSize="11sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/fix"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/textViewLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_weight="1"
+                        android:background="@color/line_gray"
+                        android:textSize="8sp" />
+
+                    <TextView
+                        android:id="@+id/textViewLine1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_below="@+id/textViewLine"
+                        android:background="@android:color/background_light"
+                        android:textSize="8sp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/buttonCity"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/fixCity"
+                android:background="@layout/button_blue"
+                android:text="Burago di Molgora (MB)"
+                android:textColor="@android:color/background_light"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/buttonSave"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/buttonCity"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:background="@layout/button_green"
+                android:text="Salva le modifiche"
+                android:textColor="@android:color/background_light"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </RelativeLayout>
 
 </ScrollView>

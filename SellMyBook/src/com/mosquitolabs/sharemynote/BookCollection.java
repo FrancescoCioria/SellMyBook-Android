@@ -6,7 +6,7 @@ public class BookCollection {
 
 	private static final int ALL = 0;
 	private static final int SELLING = 2;
-	private static final int CURRENT_SELL =1;
+	private static final int CURRENT_SELL = 1;
 	private static final int CURRENT_BUY = 1;
 	private static final int BOUGHT = 2;
 	private static final int SOLD = 3;
@@ -66,6 +66,15 @@ public class BookCollection {
 		return wanted;
 	}
 
+	public BookData getBookFromSearchByID(String ID) {
+		for (BookData book : searchResult) {
+			if (book.ID.equals(ID)) {
+				return book;
+			}
+		}
+		return null;
+	}
+
 	public void addBookToList(ArrayList<BookData> list, BookData book) {
 
 		for (BookData temp : list) {
@@ -75,6 +84,18 @@ public class BookCollection {
 		}
 
 		list.add(book);
+
+	}
+
+	public void addBookToListWanted(BookData book) {
+
+		for (BookData temp : wanted) {
+			if (temp.ID.equals(book.ID)) {
+				return;
+			}
+		}
+
+		wanted.add(book);
 
 	}
 
@@ -127,6 +148,7 @@ public class BookCollection {
 		}
 		list.remove(counter);
 	}
+
 	public void removeBookFromListSell(BookData book) {
 		int counter = 0;
 		for (BookData temp : sellAll) {

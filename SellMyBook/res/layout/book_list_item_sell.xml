@@ -138,10 +138,7 @@
                         android:textColor="@color/side_navigation_outside_background"
                         android:textSize="10sp" />
 
-                    <TextView
-                        android:id="@+id/book_list_item_dummy"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                   
                 </LinearLayout>
 
                 <TextView
@@ -158,19 +155,7 @@
                     android:textColor="@android:color/holo_green_dark"
                     android:textSize="10sp" />
 
-                <Button
-                    android:id="@+id/buttonSetAsSold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginRight="7dp"
-                    android:background="@layout/button_blue_thin"
-                    android:padding="5dp"
-                    android:text="Segna come\nvenduto"
-                    android:textColor="@android:color/white"
-                    android:textSize="11sp" />
+               
 
                 <Button
                     android:id="@+id/spinnerOverflow"
@@ -183,18 +168,7 @@
                     android:background="@drawable/ic_action_overflow" />
             </RelativeLayout>
 
-            <Button
-                android:id="@+id/buttonSold"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="7dp"
-                android:background="@drawable/sold"
-                android:padding="5dp"
-                android:textColor="@android:color/white"
-                android:textSize="11sp"
-                android:visibility="gone" />
+            
         </RelativeLayout>
     </RelativeLayout>
 

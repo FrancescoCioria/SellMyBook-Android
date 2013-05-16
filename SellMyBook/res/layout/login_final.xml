@@ -5,6 +5,111 @@
     android:background="@color/background_gray"
     android:orientation="vertical" >
 
+    <RelativeLayout
+        android:id="@+id/uni"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_gray"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/login_final_textViewUni"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/login_university"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/holo_blue_dark" />
+
+        <Button
+            android:id="@+id/login_final_buttonUni"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@+id/login_final_textViewUni"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:background="@layout/button_blue"
+            android:hint="Seleziona un&apos;università.."
+            android:minWidth="200dp"
+            android:text=""
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/line"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/uni"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" >
+
+        <TextView
+            android:id="@+id/textViewLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/editTextSearch"
+            android:layout_marginTop="5dp"
+            android:background="@color/line_gray"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/textViewLine2"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/textViewLine"
+            android:background="@android:color/background_light"
+            android:textSize="8sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line"
+        android:layout_marginTop="10dp"
+        android:background="@color/background_gray"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/login_final_textViewCity"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/login_city"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/holo_blue_dark" />
+
+        <Button
+            android:id="@+id/login_final_buttonCity"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@+id/login_final_textViewCity"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:background="@layout/button_blue"
+            android:hint="Seleziona una città.."
+            android:minWidth="200dp"
+            android:text=""
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/login_final_textView"
         android:layout_width="wrap_content"
@@ -16,29 +121,57 @@
         android:gravity="center"
         android:text="@string/login_final"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/holo_blue_dark" />
+        android:textColor="@android:color/holo_blue_dark"
+        android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/textView1"
+    <RelativeLayout
+        android:id="@+id/line2"
         android:layout_width="fill_parent"
-        android:layout_height="0.1dp"
-        android:layout_centerInParent="true" />
-
-    <Button
-        android:id="@+id/login_final_buttonContinue"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:background="@layout/button_green"
-        android:minWidth="200dp"
-        android:paddingBottom="5dp"
+        android:layout_below="@+id/city"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="5dp"
-        android:textSize="13sp"
-        android:text="Entra in SellMyBook"
-        android:textColor="@color/background_gray" />
+        android:paddingRight="20dp" >
+
+        <TextView
+            android:id="@+id/textViewLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/editTextSearch"
+            android:layout_marginTop="5dp"
+            android:background="@color/line_gray"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/textViewLine2"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/textViewLine"
+            android:background="@android:color/background_light"
+            android:textSize="8sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/line2" >
+
+        <Button
+            android:id="@+id/login_final_buttonContinue"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@+id/textView1"
+            android:layout_centerInParent="true"
+            android:background="@layout/button_green"
+            android:minWidth="200dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="5dp"
+            android:text="Entra in SellMyBook"
+            android:textColor="@color/background_gray"
+            android:textSize="13sp" />
+    </RelativeLayout>
 
 </RelativeLayout>

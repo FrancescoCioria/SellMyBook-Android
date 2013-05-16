@@ -47,12 +47,8 @@ public class MyCustomAdapterSell extends BaseAdapter {
 	private static final int SET_AS_SOLD = 1;
 	private static final int SELL_ANOTHER = 1;
 
-
-
 	private int size;
 	private MainActivity context;
-
-	
 
 	private static String[] MENU_CURRENT = { "Profilo compratore",
 			"Segna come venduto", "Transazione fallita" };
@@ -64,7 +60,7 @@ public class MyCustomAdapterSell extends BaseAdapter {
 		this.mInflater = LayoutInflater.from(paramContext);
 		this.currentList = currentList;
 		context = paramContext;
-		Log.i("MyCustomAdapterSell", "created: "+context.getCounter2());
+		Log.i("MyCustomAdapterSell", "created: " + context.getCounter2());
 	}
 
 	public int getCount() {
@@ -73,8 +69,6 @@ public class MyCustomAdapterSell extends BaseAdapter {
 		case ALL:
 			size = bookCollection.getSellAll().size();
 			break;
-
-		
 
 		default:
 			size = bookCollection.getSellSizeForSellingState(currentList);
@@ -115,13 +109,9 @@ public class MyCustomAdapterSell extends BaseAdapter {
 
 			localViewHolder.sold = (ImageView) paramView
 					.findViewById(R.id.book_list_item_corner_sold);
-			localViewHolder.buttonSetAsSold = (Button) paramView
-					.findViewById(R.id.buttonSetAsSold);
 
 			localViewHolder.overflow = (Button) paramView
 					.findViewById(R.id.spinnerOverflow);
-
-			
 
 			paramView.setTag(localViewHolder);
 
@@ -130,9 +120,9 @@ public class MyCustomAdapterSell extends BaseAdapter {
 		localViewHolder = (ViewHolder) paramView.getTag();
 
 		final ViewHolder holder = localViewHolder;
-		
+
 		BookData temp = new BookData();
-		
+
 		switch (currentList) {
 		case ALL:
 
@@ -154,7 +144,7 @@ public class MyCustomAdapterSell extends BaseAdapter {
 												.getSellSizeForSellingState(SELLING)));
 			}
 			break;
-	
+
 		default:
 			temp = bookCollection.getNextBookForSellingState(currentList,
 					paramInt);
@@ -163,7 +153,8 @@ public class MyCustomAdapterSell extends BaseAdapter {
 		}
 		long end = Calendar.getInstance().getTimeInMillis();
 
-		//Log.i("AdapterSell", "ricerca libro: "+Long.toString(end-start)+" millis");
+		// Log.i("AdapterSell",
+		// "ricerca libro: "+Long.toString(end-start)+" millis");
 
 		final BookData book = temp;
 
@@ -179,17 +170,8 @@ public class MyCustomAdapterSell extends BaseAdapter {
 		holder.icon.setImageBitmap(b);
 
 		holder.sold.setVisibility(View.GONE);
-		holder.buttonSetAsSold.setVisibility(View.GONE);
+
 		holder.topTitleAll.setVisibility(View.GONE);
-
-		holder.buttonSetAsSold.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				context.setBookAsSold(book);
-			}
-
-		});
 
 		if (currentList == ALL) {
 			if ((paramInt == 0)
@@ -267,7 +249,6 @@ public class MyCustomAdapterSell extends BaseAdapter {
 			holder.bottomMargin.setVisibility(View.GONE);
 		}
 
-		
 		return paramView;
 
 	}
@@ -282,7 +263,6 @@ public class MyCustomAdapterSell extends BaseAdapter {
 		RelativeLayout topMargin;
 		RelativeLayout bottomMargin;
 		Button overflow;
-		Button buttonSetAsSold;
 
 	}
 
@@ -324,15 +304,15 @@ public class MyCustomAdapterSell extends BaseAdapter {
 
 		final int NUM_OF_VISIBLE_LIST_ROWS = items.length;
 		ListView list = (ListView) popupView.findViewById(R.id.listView);
-		
-		ArrayAdapter<String> adapter =new ArrayAdapter<String>(context,
+
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
 				R.layout.list_item_instant, items);
-		adapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		list.setAdapter(adapter);
 		list.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-		popupWindow.setWidth(list.getMeasuredWidth()+list.getMeasuredWidth()/5);
-		popupWindow.setHeight((list.getMeasuredHeight()+2)
+		popupWindow.setWidth(list.getMeasuredWidth() + list.getMeasuredWidth()
+				/ 5);
+		popupWindow.setHeight((list.getMeasuredHeight() + 2)
 				* NUM_OF_VISIBLE_LIST_ROWS);
 
 		list.setOnItemClickListener(new OnItemClickListener() {

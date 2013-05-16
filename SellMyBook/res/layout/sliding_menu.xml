@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent" 
+    android:background="@color/sliding_menu_background"
+    >
 
     <View
         android:id="@+id/side_navigation_outside_view"
@@ -9,13 +11,12 @@
         android:layout_height="fill_parent"
         android:background="@color/side_navigation_outside_background"
         android:clickable="true"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/accountLayout"
         android:layout_width="fill_parent"
         android:layout_height="80dp"
-        android:background="@color/side_navigation_background"
         android:padding="10dp" >
 
         <ImageView
@@ -73,11 +74,10 @@
         android:background="@color/side_navigation_menu" >
 
         <TextView
-            android:id="@+id/email"
+            android:id="@+id/textMenu"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginLeft="7dp"
-            android:padding="3dp"
             android:text="Menù"
             android:textColor="@color/side_navigation_item_text_color"
             android:textStyle="bold" />
@@ -96,10 +96,9 @@
             android:id="@+id/side_navigation_listview"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@color/side_navigation_background"
             android:cacheColorHint="#00000000"
-            android:divider="@color/side_navigation_list_divider_color"
-            android:dividerHeight="1dp" />
+            android:divider="@color/sliding_menu_item_divider_light"
+            android:dividerHeight="0.1dp" />
     </LinearLayout>
 
 </RelativeLayout>

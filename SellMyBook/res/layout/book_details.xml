@@ -21,6 +21,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
+            android:padding="10dp"
             android:scaleType="centerCrop"
             android:src="@drawable/book_exampleold" />
 
@@ -28,7 +29,7 @@
             android:id="@+id/title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/profilePicture"
             android:text="Fondamenti di fisica"
             android:textColor="@color/side_navigation_background"
@@ -76,7 +77,7 @@
             android:textSize="12sp" />
 
         <LinearLayout
-            android:id="@+id/linearLayout1"
+            android:id="@+id/buttons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/isbn"
@@ -86,7 +87,7 @@
             android:paddingBottom="5dp" >
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/buttonFavourite"
                 style="@android:style/Widget.Holo.Button"
                 android:layout_width="90dp"
                 android:layout_height="40dp"
@@ -94,7 +95,6 @@
                 android:background="@layout/button_yellow"
                 android:padding="5dp"
                 android:text="Aggiungi ai\nlibri osservati"
-
                 android:textSize="11sp" />
 
             <Button

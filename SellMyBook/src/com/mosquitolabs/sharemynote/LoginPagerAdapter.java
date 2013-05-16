@@ -4,38 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.media.audiofx.AutomaticGainControl;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.Spinner;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.RelativeLayout;
 
 import com.facebook.Session;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class LoginPagerAdapter extends PagerAdapter {
 
 	private static final int LOGIN_PAGE = 0;
 	private static final int INTRODUCTION_PAGE = 1;
-	private static final int UNIVERSITY_PAGE = 2;
+	private static final int UNIVERSITY_PAGE = 4;
 	private static final int CITY_PAGE = 3;
-	private static final int FINAL_PAGE = 4;
+	private static final int FINAL_PAGE = 2;
 
 	private Session session;
 
@@ -47,11 +48,15 @@ public class LoginPagerAdapter extends PagerAdapter {
 
 	private int selectionUni = -1;
 	private int selectionCampus = -1;
-	
+	private int selectionCity = 0;
+
 	private String campusID;
+	List<ParseObject> resultUni = new ArrayList<ParseObject>();
 
 	private final MainActivity context;
 	private View v;
+
+	boolean uni = true;
 
 	private ParseAPICalls parseAPICalls = ParseAPICalls.getInstance();
 
@@ -62,7 +67,7 @@ public class LoginPagerAdapter extends PagerAdapter {
 
 	@Override
 	public int getCount() {
-		return (5);
+		return (3);
 	}
 
 	@Override
@@ -100,116 +105,26 @@ public class LoginPagerAdapter extends PagerAdapter {
 					context.loginPagerNextPage();
 				}
 			});
+
+			// /
+
+			
+
+			// //
+
 			break;
 		case UNIVERSITY_PAGE:
 			v = inflater.inflate(R.layout.login_university, null);
-			final ArrayList<String> universityID = new ArrayList<String>();
-			final ArrayList<String> university = new ArrayList<String>();
 
-			final ArrayList<String> campus = new ArrayList<String>();
-			final ArrayList<String> campusID = new ArrayList<String>();
-			
-			final ArrayAdapter<String> adapterUni = new ArrayAdapter<String>(context,
-					R.layout.list_item_instant, university);
-			adapterUni
-					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			
-			final ArrayAdapter<String> adapterCampus = new ArrayAdapter<String>(
-					context, R.layout.list_item_instant, campus);
-			adapterCampus
-					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			
-			autoCompleteUni = (InstantAutoComplete) v
-					.findViewById(R.id.autoCompleteUni);
-			autoCompleteCampus = (InstantAutoComplete) v
-					.findViewById(R.id.autoCompleteCampus);
-			
 			buttonContinue = (Button) v
 					.findViewById(R.id.login_university_buttonContinue);
 			buttonContinue.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					if (selectionCampus>=0&&selectionUni>=0) {
-						LoginPagerAdapter.this.campusID=campusID.get(selectionCampus);
-						context.loginPagerNextPage();
-					}else{
-						AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-						dialog.setMessage("Per continuare devi prima selezionare una universitˆ e un campus, grazie.");
-						dialog.setTitle("Mmmmm...");
-						dialog.setPositiveButton("Ok", null);
-						dialog.create().show();
-					}
-						
-				}
-			});
-			
-
-			List<ParseObject> resultUni = parseAPICalls.getUniversity();
-
-			autoCompleteCampus.setAdapter(adapterCampus);
-
-			for (ParseObject temp : resultUni) {
-				university.add(temp.getString("name"));
-				universityID.add(temp.getObjectId());
-			}
-
-			
-			autoCompleteUni.setAdapter(adapterUni);
-
-			autoCompleteUni.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					autoCompleteUni.showDropDown();
-				}
-			});
-			autoCompleteCampus.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					autoCompleteCampus.showDropDown();
-				}
-			});
-
-			autoCompleteUni.setOnItemClickListener(new OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int position, long arg3) {
-
-					if (selectionUni != position) {
-						selectionUni = position;
-						List<ParseObject> resultCampus = parseAPICalls
-								.getCampus(universityID.get(position));
-						campus.clear();
-						for (ParseObject temp : resultCampus) {
-							campus.add(temp.getString("name"));
-							campusID.add(temp.getObjectId());
-						}
-						adapterCampus.notifyDataSetChanged();
-						selectionCampus = -1;
-						
-					}
-					InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-					imm.hideSoftInputFromWindow(arg1.getWindowToken(), 0);
 
 				}
-
 			});
-			autoCompleteCampus
-					.setOnItemClickListener(new OnItemClickListener() {
-						@Override
-						public void onItemClick(AdapterView<?> arg0, View arg1,
-								int position, long arg3) {
-
-							if (selectionCampus != position) {
-								selectionCampus = position;
-							}
-							InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-							imm.hideSoftInputFromWindow(arg1.getWindowToken(), 0);
-						}
-
-					});
 
 			break;
 		case CITY_PAGE:
@@ -227,16 +142,151 @@ public class LoginPagerAdapter extends PagerAdapter {
 			break;
 		case FINAL_PAGE:
 			v = inflater.inflate(R.layout.login_final, null);
+			final ArrayList<String> universityID = new ArrayList<String>();
+			final ArrayList<String> university = new ArrayList<String>();
+
+			final ArrayList<String> campus = new ArrayList<String>();
+			final ArrayList<String> campusID = new ArrayList<String>();
+
+			final ArrayAdapter<String> adapterUni = new ArrayAdapter<String>(
+					context, R.layout.list_item_instant, university);
+			adapterUni
+					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+			final ArrayAdapter<String> adapterCampus = new ArrayAdapter<String>(
+					context, R.layout.list_item_instant, campus);
+			adapterCampus
+					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			buttonContinue = (Button) v
 					.findViewById(R.id.login_final_buttonContinue);
+
+			final Button buttonUni = (Button) v
+					.findViewById(R.id.login_final_buttonUni);
+
 			buttonContinue.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					saveUserDatasInParse();
-					context.initialize();
+					if (selectionCampus >= 0 && selectionUni >= 0
+							&& selectionCity >= 0) {
+						saveUserDatasInParse();
+						context.initialize();
+					} else {
+						AlertDialog.Builder dialog = new AlertDialog.Builder(
+								context);
+						dialog.setMessage("Per continuare devi prima selezionare l'universitˆ (e campus) in cui studi e la cittˆ o paese in cui abiti...\nGrazie.");
+						dialog.setTitle("Mmmmm...");
+						dialog.setPositiveButton("Ok", null);
+						dialog.create().show();
+					}
+
 				}
 			});
+
+			// UNI //
+
+			buttonUni.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					final Dialog dialog = new Dialog(context);
+					dialog.setContentView(R.layout.dialog_university);
+					dialog.setTitle("Seleziona la tua universitˆ");
+					EditText filter = (EditText) dialog
+							.findViewById(R.id.editTextFilter);
+					final ListView list = (ListView) dialog
+							.findViewById(R.id.listView);
+
+					final RelativeLayout progress = (RelativeLayout) dialog
+							.findViewById(R.id.progress);
+					progress.setVisibility(View.VISIBLE);
+
+					list.setAdapter(adapterUni);
+					
+					filter.addTextChangedListener(new TextWatcher() {
+
+					    @Override
+					    public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+					        // When user changed the Text
+					        adapterUni.getFilter().filter(cs);
+					    }
+					    @Override
+					    public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+					            int arg3) { }
+					    @Override
+					    public void afterTextChanged(Editable arg0) {}
+					});
+					
+
+					list.setOnItemClickListener(new OnItemClickListener() {
+						@Override
+						public void onItemClick(AdapterView<?> arg0, View arg1,
+								final int position, long arg3) {
+							if (uni) {
+								uni = false;
+								progress.setVisibility(View.VISIBLE);
+
+								ParseQuery query = new ParseQuery("Campus");
+								query.whereEqualTo("university", ParseObject
+										.createWithoutData("University",
+												universityID.get(position)));
+
+								query.findInBackground(new FindCallback() {
+
+									@Override
+									public void done(
+											List<ParseObject> resultCampus,
+											ParseException arg1) {
+										campus.clear();
+										for (ParseObject temp : resultCampus) {
+											campus.add(temp.getString("name"));
+											campusID.add(temp.getObjectId());
+										}
+
+										adapterCampus.notifyDataSetChanged();
+										list.setAdapter(adapterCampus);
+										selectionUni = position;
+										dialog.setTitle("Seleziona il tuo campus");
+										progress.setVisibility(View.GONE);
+									}
+								});
+
+							} else {
+								selectionCampus = position;
+								buttonUni.setText(university.get(selectionUni)
+										+ " > " + campus.get(selectionCampus));
+								dialog.dismiss();
+							}
+
+						}
+
+					});
+
+					dialog.show();
+
+					ParseQuery query = new ParseQuery("University");
+
+					query.findInBackground(new FindCallback() {
+						@Override
+						public void done(List<ParseObject> arg0,
+								ParseException arg1) {
+							if (resultUni.isEmpty()) {
+								resultUni = arg0;
+								for (ParseObject temp : resultUni) {
+									university.add(temp.getString("name"));
+									universityID.add(temp.getObjectId());
+								}
+							}
+							adapterUni.notifyDataSetChanged();
+							progress.setVisibility(View.GONE);
+						}
+					});
+
+				}
+			});
+
+			// / CITY ////
+
 			break;
 
 		}
@@ -297,13 +347,12 @@ public class LoginPagerAdapter extends PagerAdapter {
 		popupWindow.showAsDropDown(anchor);
 
 	}
-	
-	
-	private void saveUserDatasInParse(){
-		ParseUser.getCurrentUser().put("campus", ParseObject.createWithoutData("Campus", campusID));
-		
+
+	private void saveUserDatasInParse() {
+		ParseUser.getCurrentUser().put("campus",
+				ParseObject.createWithoutData("Campus", campusID));
+
 		ParseUser.getCurrentUser().saveInBackground();
 	}
-	
 
 }

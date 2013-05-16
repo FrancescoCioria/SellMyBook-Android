@@ -41,6 +41,7 @@ public class SearchResultActivity extends SherlockActivity {
 				
 				Intent localIntent = new Intent(SearchResultActivity.this,
 						BookDetailsActivity.class);
+				localIntent.putExtra("book_ID", bookCollection.getSearchResult().get(position).ID);
 				startActivity(localIntent);
 				
 			}

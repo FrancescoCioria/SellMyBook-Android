@@ -42,7 +42,14 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Bitmap.Config;
+import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -225,6 +232,7 @@ public class MainActivity extends BaseActivity {
 		loginPager = (CustomViewPager) findViewById(R.id.viewpager);
 		loginPager.setAdapter(new LoginPagerAdapter(this));
 		loginPager.setPagingEnabled(false);
+
 		//
 		loginPager.setCurrentItem(1);
 		//
@@ -278,10 +286,6 @@ public class MainActivity extends BaseActivity {
 
 			}
 		});
-
-		// ParseObject testObject = new ParseObject("TestObject");
-		// testObject.put("foo", "bar");
-		// testObject.saveInBackground();
 
 		cleanDirectory();
 
@@ -452,6 +456,24 @@ public class MainActivity extends BaseActivity {
 		setContentView(R.layout.wanted);
 
 		slidingMenu.toggle();
+
+		MyCustomAdapterWanted adapter = new MyCustomAdapterWanted(this);
+
+		ListView list = (ListView) findViewById(R.id.listView);
+		list.setAdapter(adapter);
+
+		list.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+
+				Intent intent = new Intent(MainActivity.this,
+						BookDetailsActivity.class);
+				intent.putExtra("book_ID",
+						bookCollection.getWanted().get(position).ID);
+				startActivity(intent);
+			}
+		});
 
 	}
 
@@ -787,7 +809,8 @@ public class MainActivity extends BaseActivity {
 													.getCurrentUser()
 													.setEmail(
 															json.getString("email"));
-											ParseUser.getCurrentUser().save();
+											ParseUser.getCurrentUser()
+													.saveInBackground();
 										} catch (Exception e) {
 											// TODO: handle exception
 										}
@@ -889,6 +912,7 @@ public class MainActivity extends BaseActivity {
 
 	private void getUserData() {
 		try {
+
 			user.name = ParseUser.getCurrentUser().getUsername();
 			user.email = ParseUser.getCurrentUser().getEmail();
 			user.ID = ParseUser.getCurrentUser().getObjectId();
@@ -909,26 +933,48 @@ public class MainActivity extends BaseActivity {
 					query.findInBackground(new FindCallback() {
 
 						@Override
-						public void done(List<ParseObject> arg0, ParseException arg1) {
+						public void done(List<ParseObject> arg0,
+								ParseException arg1) {
 							ParseObject university = arg0.get(0);
 							user.university = university.getString("name");
 							setName(user.name);
 							setEmail(user.email);
-							setUniversity(user.university);			
-							
+							setUniversity(user.university);
+
 						}
-						
+
 					});
 
 				}
 			});
-
-			
 
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 
 	}
+	
+	public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
+		Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
+				bitmap.getHeight(), Config.ARGB_8888);
+		Canvas canvas = new Canvas(output);
+
+		final int color = 0xff424242;
+		final Paint paint = new Paint();
+		final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+		final RectF rectF = new RectF(rect);
+		final float roundPx = pixels;
+
+		paint.setAntiAlias(true);
+		canvas.drawARGB(0, 0, 0, 0);
+		paint.setColor(color);
+		canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+		canvas.drawBitmap(bitmap, rect, rect, paint);
+
+		return output;
+	}
+	
 
 }
