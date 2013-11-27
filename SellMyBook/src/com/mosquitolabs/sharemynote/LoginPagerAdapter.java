@@ -58,6 +58,11 @@ public class LoginPagerAdapter extends PagerAdapter {
 
 	boolean uni = true;
 
+	private RelativeLayout progressLogin;
+
+	private ArrayAdapter<String> adapterCampus;
+	private ArrayAdapter<String> adapterUni;
+
 	private ParseAPICalls parseAPICalls = ParseAPICalls.getInstance();
 
 	public LoginPagerAdapter(MainActivity context) {
@@ -81,11 +86,13 @@ public class LoginPagerAdapter extends PagerAdapter {
 
 		case LOGIN_PAGE:
 			v = inflater.inflate(R.layout.welcome, null);
+			progressLogin = (RelativeLayout) v.findViewById(R.id.progressLogin);
 			buttonLogin = (Button) v.findViewById(R.id.buttonLogin);
 			buttonLogin.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View arg0) {
+					progressLogin.setVisibility(View.VISIBLE);
 					context.loginButtonClick();
 
 				}
@@ -107,8 +114,6 @@ public class LoginPagerAdapter extends PagerAdapter {
 			});
 
 			// /
-
-			
 
 			// //
 
@@ -140,6 +145,7 @@ public class LoginPagerAdapter extends PagerAdapter {
 			});
 
 			break;
+
 		case FINAL_PAGE:
 			v = inflater.inflate(R.layout.login_final, null);
 			final ArrayList<String> universityID = new ArrayList<String>();
@@ -148,15 +154,12 @@ public class LoginPagerAdapter extends PagerAdapter {
 			final ArrayList<String> campus = new ArrayList<String>();
 			final ArrayList<String> campusID = new ArrayList<String>();
 
-			final ArrayAdapter<String> adapterUni = new ArrayAdapter<String>(
-					context, R.layout.list_item_instant, university);
-			adapterUni
-					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			adapterUni = new ArrayAdapter<String>(context,
+					R.layout.list_item_instant, university);
 
-			final ArrayAdapter<String> adapterCampus = new ArrayAdapter<String>(
-					context, R.layout.list_item_instant, campus);
-			adapterCampus
-					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			adapterCampus = new ArrayAdapter<String>(context,
+					R.layout.list_item_instant, campus);
+
 			buttonContinue = (Button) v
 					.findViewById(R.id.login_final_buttonContinue);
 
@@ -189,10 +192,13 @@ public class LoginPagerAdapter extends PagerAdapter {
 
 				@Override
 				public void onClick(View v) {
+					uni = true;
+					adapterUni = new ArrayAdapter<String>(context,
+							R.layout.list_item_instant, university);
 					final Dialog dialog = new Dialog(context);
 					dialog.setContentView(R.layout.dialog_university);
 					dialog.setTitle("Seleziona la tua universitˆ");
-					EditText filter = (EditText) dialog
+					final EditText filter = (EditText) dialog
 							.findViewById(R.id.editTextFilter);
 					final ListView list = (ListView) dialog
 							.findViewById(R.id.listView);
@@ -202,31 +208,52 @@ public class LoginPagerAdapter extends PagerAdapter {
 					progress.setVisibility(View.VISIBLE);
 
 					list.setAdapter(adapterUni);
-					
+
 					filter.addTextChangedListener(new TextWatcher() {
 
-					    @Override
-					    public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-					        // When user changed the Text
-					        adapterUni.getFilter().filter(cs);
-					    }
-					    @Override
-					    public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-					            int arg3) { }
-					    @Override
-					    public void afterTextChanged(Editable arg0) {}
+						@Override
+						public void onTextChanged(CharSequence cs, int arg1,
+								int arg2, int arg3) {
+							// When user changed the Text
+							if (uni) {
+								adapterUni.getFilter().filter(cs);
+							} else {
+								adapterCampus.getFilter().filter(cs);
+							}
+						}
+
+						@Override
+						public void beforeTextChanged(CharSequence arg0,
+								int arg1, int arg2, int arg3) {
+						}
+
+						@Override
+						public void afterTextChanged(Editable arg0) {
+						}
 					});
-					
 
 					list.setOnItemClickListener(new OnItemClickListener() {
 						@Override
 						public void onItemClick(AdapterView<?> arg0, View arg1,
-								final int position, long arg3) {
+								final int paramInt, long arg3) {
 							if (uni) {
 								uni = false;
 								progress.setVisibility(View.VISIBLE);
 
+								String name = adapterUni.getItem(paramInt);
+								int i = 0;
+								for (String temp : university) {
+									if (name.equals(temp)) {
+										break;
+									} else {
+										i++;
+									}
+								}
+
+								final int position = i;
+
 								ParseQuery query = new ParseQuery("Campus");
+
 								query.whereEqualTo("university", ParseObject
 										.createWithoutData("University",
 												universityID.get(position)));
@@ -243,18 +270,37 @@ public class LoginPagerAdapter extends PagerAdapter {
 											campusID.add(temp.getObjectId());
 										}
 
-										adapterCampus.notifyDataSetChanged();
+										adapterCampus = new ArrayAdapter<String>(
+												context,
+												R.layout.list_item_instant,
+												campus);
 										list.setAdapter(adapterCampus);
 										selectionUni = position;
 										dialog.setTitle("Seleziona il tuo campus");
+										filter.setText("");
 										progress.setVisibility(View.GONE);
 									}
 								});
 
 							} else {
+
+								String name = adapterCampus.getItem(paramInt);
+								int i = 0;
+								for (String temp : campus) {
+									if (name.equals(temp)) {
+										break;
+									} else {
+										i++;
+									}
+								}
+
+								final int position = i;
+
 								selectionCampus = position;
 								buttonUni.setText(university.get(selectionUni)
 										+ " > " + campus.get(selectionCampus));
+								LoginPagerAdapter.this.campusID = campusID
+										.get(selectionCampus);
 								dialog.dismiss();
 							}
 
@@ -278,6 +324,10 @@ public class LoginPagerAdapter extends PagerAdapter {
 								}
 							}
 							adapterUni.notifyDataSetChanged();
+							for (int i = 0; i < university.size(); i++) {
+								// list.getChildAt(i).getId();
+							}
+
 							progress.setVisibility(View.GONE);
 						}
 					});
@@ -351,7 +401,6 @@ public class LoginPagerAdapter extends PagerAdapter {
 	private void saveUserDatasInParse() {
 		ParseUser.getCurrentUser().put("campus",
 				ParseObject.createWithoutData("Campus", campusID));
-
 		ParseUser.getCurrentUser().saveInBackground();
 	}
 

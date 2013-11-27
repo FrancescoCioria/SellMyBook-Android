@@ -1,6 +1,7 @@
 package com.mosquitolabs.sharemynote;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,6 +22,10 @@ public class SearchBuyActivity extends SherlockActivity {
 		setContentView(R.layout.search_buy);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+		Drawable background = getResources().getDrawable(R.drawable.untitled2);
+
+		getSupportActionBar().setBackgroundDrawable(background);
+		
 		buttonISBN = (Button) findViewById(R.id.buttonISBNSearch);
 		buttonRandom = (Button) findViewById(R.id.buttonRandomGo);
 		buttonISBN.setOnClickListener(new OnClickListener() {

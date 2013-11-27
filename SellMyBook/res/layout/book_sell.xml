@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_gray"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/details"
+        android:layout_width="fill_parent"
+        android:layout_height="145dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/profilePicture"
+        android:orientation="vertical"
+        android:paddingRight="5dp" >
+
+        <ImageView
+            android:id="@+id/profilePicture"
+            android:layout_width="105dp"
+            android:layout_height="145dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/book_exampleold" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/profilePicture"
+            android:text="Fondamenti di fisica"
+            android:textColor="@color/side_navigation_background"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_toRightOf="@+id/profilePicture"
+            android:text="James S. Walker"
+            android:textColor="@color/side_navigation_outside_background"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/author"
+            android:layout_toRightOf="@+id/profilePicture"
+            android:text="(2010) - "
+            android:textColor="@color/side_navigation_outside_background"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/publisher"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/author"
+            android:layout_toRightOf="@+id/year"
+            android:text="Pearson"
+            android:textColor="@color/side_navigation_outside_background"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/isbn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/publisher"
+            android:layout_marginBottom="5dp"
+            android:layout_toRightOf="@+id/profilePicture"
+            android:text="ISBN: 9788871925851"
+            android:textColor="@color/side_navigation_outside_background"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:id="@+id/buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/isbn"
+            android:layout_below="@+id/isbn"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp" >
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/actions"
+        android:layout_width="fill_parent"
+        android:layout_height="52dp"
+        android:layout_below="@+id/details"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <Button
+            android:id="@+id/buttonSellThisBook"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@layout/button_blue_no_round"
+            android:text="Vendi questo libro"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/buttonAddToWanted"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@layout/button_green_activity_main"
+            android:text="Aggiungi ai libri che osservi"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+   
+
+</RelativeLayout>

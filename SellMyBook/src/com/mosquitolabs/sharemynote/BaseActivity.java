@@ -28,15 +28,21 @@ public class BaseActivity extends SlidingActivity {
 	private ListView list;
 	private RelativeLayout account;
 	
+	private int selectedTab=0;
+	
 	private TextView name;
 	private TextView email;
 	private TextView university;
+	
+	private SlidingMenuAdapter adapter;
 
 	private static final String LOG_TAG = SlidingMenuAdapter.class
 			.getSimpleName();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		this.setTheme(com.actionbarsherlock.R.style.Sherlock___Theme_DarkActionBar);
+
 		super.onCreate(savedInstanceState);
 		
 
@@ -86,8 +92,8 @@ public class BaseActivity extends SlidingActivity {
 
 		list = (ListView) slidingMenu.getMenu().findViewById(
 				R.id.side_navigation_listview);
-		SlidingMenuAdapter adapter = new SlidingMenuAdapter(0,
-				BaseActivity.this);
+		adapter = null;
+				//new SlidingMenuAdapter(0,BaseActivity.this);
 		list.setAdapter(adapter);
 		
 		account = (RelativeLayout) slidingMenu.getMenu().findViewById(R.id.accountLayout);
@@ -189,5 +195,18 @@ public class BaseActivity extends SlidingActivity {
 	public void setUniversity(String s){
 		university.setText(s);
 	}
+	
+	public void setSelectedTab(int x){
+		selectedTab=x;
+	}
+	
+	public int getSellectedTab(){
+		return selectedTab;
+	}
+	
+	public void refreshSlidingMenuAdapter(){
+		adapter.notifyDataSetChanged();
+	}
+	
 
 }

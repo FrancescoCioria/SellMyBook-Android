@@ -15,5 +15,7 @@
     <string name="desc_wanted">Di seguito trovi la lista completa dei libri che stai osservando. Cliccaci sopra per passare subito alla pagina dei dettagli!</string>
     <string name="button_sell_details">Vendi questo libro</string>
     <string name="button_add_to_wanted">Aggiungi ai libri che osservo</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 
 </resources>

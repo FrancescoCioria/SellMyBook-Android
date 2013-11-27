@@ -41,15 +41,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Bitmap.Config;
-import android.graphics.PorterDuff.Mode;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -69,9 +70,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.Request;
-import com.facebook.Response;
-import com.facebook.model.GraphUser;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.parse.FindCallback;
@@ -93,7 +91,7 @@ public class MainActivity extends BaseActivity {
 	private int counter = 0;
 	private int counter2 = 0;
 	private int currentLoginTab = 0;
-	private int currentSellTab = 0;
+	private int currentTab = 0;
 
 	private final static int LOGGED_OUT = 0;
 	private final static int LOGGED_IN = 1;
@@ -172,7 +170,7 @@ public class MainActivity extends BaseActivity {
 
 		// myJson();
 
-		if (true || ParseFacebookUtils.getSession() == null) {
+		if (ParseFacebookUtils.getSession() == null) {
 			initializeLogin();
 		} else {
 			initialize();
@@ -196,6 +194,7 @@ public class MainActivity extends BaseActivity {
 		} else {
 			ParseFacebookUtils.finishAuthentication(requestCode, resultCode,
 					data);
+			loginPagerNextPage();
 
 		}
 
@@ -233,18 +232,30 @@ public class MainActivity extends BaseActivity {
 		loginPager.setAdapter(new LoginPagerAdapter(this));
 		loginPager.setPagingEnabled(false);
 
-		//
-		loginPager.setCurrentItem(1);
-		//
+		loginPager.setCurrentItem(0);
+	}
 
+	private void initializeLoginFake() {
+		setContentView(R.layout.login);
+		getSupportActionBar().hide();
+		//getSlidingMenu().setActivated(false);
+		currentLoginTab = 1;
+		loginPager = (CustomViewPager) findViewById(R.id.viewpager);
+		loginPager.setAdapter(new LoginPagerAdapter(this));
+		loginPager.setPagingEnabled(false);
+
+		loginPager.setCurrentItem(1);
 	}
 
 	public void initialize() {
 		// activate actionbar
+		//getSlidingMenu().setActivated(true);
+
 		getSupportActionBar().show();
 		Drawable background = getResources().getDrawable(R.drawable.untitled2);
 
 		getSupportActionBar().setBackgroundDrawable(background);
+		//getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getColor(R.color.action)));
 
 		// invalidate login viewpager
 		if (loginPager != null) {
@@ -252,14 +263,22 @@ public class MainActivity extends BaseActivity {
 		}
 
 		// initialize slidingMenu
-		slidingMenu = getSlidingMenu();
-		listViewSlidingMenu = getSlidingMenuList();
+		
+		//listViewSlidingMenu = getSlidingMenu();
+		
+		
+		
+		
+		//CAMBIATO
+		//listViewSlidingMenu = getDrawerList();
 		listViewSlidingMenu.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
-				if (currentSellTab != position) {
-					currentSellTab = position;
+				if (currentTab != position) {
+					currentTab = position;
+					if (!getActionBar().isShowing())
+						getActionBar().show();
 
 					switch (position) {
 					case BUY:
@@ -277,9 +296,14 @@ public class MainActivity extends BaseActivity {
 						toast("settings");
 						break;
 					case LICENSE:
-						toast("license");
+						initializeLoginFake();
+						slidingMenu.toggle();
 						break;
 					}
+
+					setSelectedTab(currentTab);
+					refreshSlidingMenuAdapter();
+
 				} else {
 					slidingMenu.toggle();
 				}
@@ -314,8 +338,8 @@ public class MainActivity extends BaseActivity {
 
 		// go to second tab
 		int position = SELL;
-		listViewSlidingMenu.performItemClick(listViewSlidingMenu.getAdapter()
-				.getView(position, null, null), position, position);
+		//listViewSlidingMenu.performItemClick(listViewSlidingMenu.getAdapter()
+			//	.getView(position, null, null), position, position);
 
 		// initializeSell();
 
@@ -771,62 +795,24 @@ public class MainActivity extends BaseActivity {
 	}
 
 	public void loginButtonClick() {
-		setContentView(R.layout.facebook);
 		ParseFacebookUtils.logIn(this, new LogInCallback() {
 			@Override
 			public void done(ParseUser user, ParseException err) {
 				if (user == null) {
 					Log.d("MyApp",
 							"Uh oh. The user cancelled the Facebook login.");
-					/*
-					 * if
-					 * (!ParseFacebookUtils.getSession().getPermissions().contains
-					 * (ParseFacebookUtils.Permissions.User.EMAIL)) {
-					 * List<String> permissions = Arrays
-					 * .asList(ParseFacebookUtils.Permissions.User.EMAIL);
-					 * ParseFacebookUtils
-					 * .getSession().requestNewReadPermissions( new
-					 * NewPermissionsRequest(MainActivity.this, permissions)); }
-					 */
-
-					Request.executeMeRequestAsync(
-							ParseFacebookUtils.getSession(),
-							new Request.GraphUserCallback() {
-
-								@Override
-								public void onCompleted(GraphUser user,
-										Response response) {
-									if (user != null) {
-										// Display the parsed user info
-										try {
-											JSONObject json = response
-													.getGraphObject()
-													.getInnerJSONObject();
-											ParseUser
-													.getCurrentUser()
-													.setUsername(user.getName());
-											ParseUser
-													.getCurrentUser()
-													.setEmail(
-															json.getString("email"));
-											ParseUser.getCurrentUser()
-													.saveInBackground();
-										} catch (Exception e) {
-											// TODO: handle exception
-										}
-									}
-								}
-							});
+					
 					initializeLogin();
+					
 				} else if (user.isNew()) {
 
 					Log.d("MyApp",
 							"User signed up and logged in through Facebook!");
-					initializeLogin();
+					//initializeLogin();
 					loginPagerNextPage();
 				} else {
 					Log.d("MyApp", "User logged in through Facebook!");
-					initializeLogin();
+					//initializeLogin();
 					loginPagerNextPage();
 
 				}
@@ -953,7 +939,7 @@ public class MainActivity extends BaseActivity {
 		}
 
 	}
-	
+
 	public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
 		Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
 				bitmap.getHeight(), Config.ARGB_8888);
@@ -975,6 +961,5 @@ public class MainActivity extends BaseActivity {
 
 		return output;
 	}
-	
 
 }

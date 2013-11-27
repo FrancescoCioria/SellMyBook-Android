@@ -21,6 +21,6 @@
     <item
         android:id="@+id/side_navigation_menu_item6"
         android:icon="@drawable/ic_action_logout"
-        android:title="Licenza e Privacy"/>
+        android:title="(Login FAKE)"/>
 
 </menu>

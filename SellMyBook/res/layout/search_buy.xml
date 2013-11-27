@@ -10,72 +10,185 @@
         android:id="@+id/random"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:orientation="vertical" >
 
-        <TextView
+        <RelativeLayout
             android:id="@+id/fixRandom"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/fix"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textViewLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/line_gray"
+                    android:textSize="8sp" />
+
+                <TextView
+                    android:id="@+id/textViewLine1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_below="@+id/textViewLine"
+                    android:background="@android:color/background_light"
+                    android:textSize="8sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/fix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profilePicture"
+                android:layout_centerInParent="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Parole chiave"
+                android:textSize="11sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/fix"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textViewLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/line_gray"
+                    android:textSize="8sp" />
+
+                <TextView
+                    android:id="@+id/textViewLine1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_below="@+id/textViewLine"
+                    android:background="@android:color/background_light"
+                    android:textSize="8sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/fixRandom2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/profilePicture"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:text="Cerca il tuo libro con parole chiave (titolo, autore..)"
-            android:textSize="11sp" />
+            android:textSize="11sp"
+            android:visibility="gone" />
 
         <EditText
             android:id="@+id/editRandomSearch"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/fixRandom"
-            android:layout_toLeftOf="@+id/buttonRandomGo"
-            android:textSize="12sp"
-                        android:hint="titolo, autore, editore, anno.."
-            
-            android:background="@drawable/edit_text_rounded_corners" />
+            android:layout_marginTop="2dp"
+            android:paddingRight="65dp"
+            android:background="@drawable/edit_text_rounded_corners"
+            android:hint="titolo, autore, editore, anno.."
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/buttonRandomGo"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editRandomSearch"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="2dp"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/fixRandom"
-            android:background="@drawable/ic_action_go" />
+            android:background="@layout/button_blue_no_round" />
+        <ImageView
+            android:id="@+id/imageCerca"
+            android:layout_width="60dp"
+            android:layout_height="39dp"
+            android:padding="7dp"
+            android:layout_marginTop="2dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/fixRandom"
+            android:src="@drawable/ic_action_cercalibri" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/line1"
+        android:id="@+id/fixTags"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/random"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical" >
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="20dp" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/fix"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textViewLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/line_gray"
+                android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/textViewLine1"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_below="@+id/textViewLine"
+                android:background="@android:color/background_light"
+                android:textSize="8sp" />
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/textViewLine"
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_below="@+id/editTextSearch"
-            android:layout_marginTop="5dp"
-            android:background="@color/line_gray"
-            android:textSize="8sp" />
+            android:id="@+id/fix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profilePicture"
+            android:layout_centerInParent="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Tags"
+            android:textSize="11sp" />
 
-        <TextView
-            android:id="@+id/textViewLine2"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_below="@+id/textViewLine"
-            android:background="@android:color/background_light"
-            android:textSize="8sp" />
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/fix"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textViewLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/line_gray"
+                android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/textViewLine1"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_below="@+id/textViewLine"
+                android:background="@android:color/background_light"
+                android:textSize="8sp" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/UniProf"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/line1"
-        android:layout_marginTop="20dp"
+        android:layout_below="@+id/fixTags"
+        android:layout_marginTop="2dp"
         android:orientation="vertical" >
 
         <TextView
@@ -86,7 +199,9 @@
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:text="Cerca un libro per università..."
-            android:textSize="11sp" />
+            android:textSize="11sp" 
+            android:visibility="gone"
+            />
 
         <EditText
             android:id="@+id/editUniversitySearch"
@@ -94,9 +209,9 @@
             android:layout_height="40dp"
             android:layout_below="@+id/fixUni"
             android:layout_centerHorizontal="true"
-                        android:textSize="12sp"
-            android:hint="inserisci l'Università.."
-            android:background="@drawable/edit_text_rounded_corners" />
+            android:background="@drawable/edit_text_rounded_corners"
+            android:hint="cerca per Università.."
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/fixProfessor"
@@ -106,6 +221,7 @@
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginTop="10dp"
+            android:visibility="gone"
             android:text="...e per professore!"
             android:textSize="11sp" />
 
@@ -113,59 +229,108 @@
             android:id="@+id/editProfessorSearch"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
+            android:layout_marginTop="15dp"
             android:layout_below="@+id/fixProfessor"
             android:layout_centerHorizontal="true"
-                        android:textSize="12sp"
-                                    android:hint="inserisci il nome del professore.."
-                        
-            
-            android:background="@drawable/edit_text_rounded_corners" />
+            android:background="@drawable/edit_text_rounded_corners"
+            android:hint="cerca per professore.."
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/buttonUniversityGo"
-            android:layout_width="40dp"
+            android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/editProfessorSearch"
             android:layout_marginTop="3dp"
-            android:background="@drawable/ic_action_go"
+            android:background="@layout/button_blue_thin"
             android:textColor="@android:color/background_light"
             android:textSize="14sp" />
+        <ImageView
+            android:id="@+id/imageCerca"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/editProfessorSearch"
+            android:layout_marginTop="3dp"
+            android:padding="7dp"
+            android:src="@drawable/ic_action_cercalibri"
+             />
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/line2"
+        android:id="@+id/fixISBN"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/UniProf"
-        android:layout_marginTop="17dp"
-        android:orientation="vertical" >
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="25dp" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/fix"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textViewLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/line_gray"
+                android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/textViewLine1"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_below="@+id/textViewLine"
+                android:background="@android:color/background_light"
+                android:textSize="8sp" />
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/textViewLine"
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_below="@+id/editTextSearch"
-            android:layout_marginTop="5dp"
-            android:background="@color/line_gray"
-            android:textSize="8sp" />
+            android:id="@+id/fix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profilePicture"
+            android:layout_centerInParent="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="ISBN"
+            android:textSize="11sp" />
 
-        <TextView
-            android:id="@+id/textViewLine2"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_below="@+id/textViewLine"
-            android:background="@android:color/background_light"
-            android:textSize="8sp" />
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/fix"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textViewLine"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/line_gray"
+                android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/textViewLine1"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_below="@+id/textViewLine"
+                android:background="@android:color/background_light"
+                android:textSize="8sp" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <Button
         android:id="@+id/buttonISBNSearch"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
-        android:layout_below="@+id/line2"
+        android:layout_below="@+id/fixISBN"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@layout/button_blue"
         android:text="Cerca per ISBN"
         android:textColor="@android:color/background_light"
